@@ -1,8 +1,36 @@
-C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v
+C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module pc_incrementer
+
+Top level modules:
+	pc_incrementer
+
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module instruction_memory
 
 Top level modules:
 	instruction_memory
+
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module branch_mux
+
+Top level modules:
+	branch_mux
+
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/PC.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/PC.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module PC
+
+Top level modules:
+	PC
+
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module instruction_memory_tb
+
+Top level modules:
+	instruction_memory_tb
 
 } {} {}}
