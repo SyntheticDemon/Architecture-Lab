@@ -1,11 +1,11 @@
 module instruction_memory (
-    input [2:0] address,        // 3-bit address for selecting one of the 6 instructions
+    input [31:0] address,        // 32-bit address for selecting one of the 6 instructions
     output reg [31:0] instruction // 32-bit instruction output
 );
 
     // Define the instructions based on the given binary values
     always @(*) begin
-        case (address)
+        case (address[2:0]) // Use the lower 3 bits of the address
             3'b000: instruction = 32'b000000_00011_00010_00000_00000000000;
             3'b001: instruction = 32'b000000_00011_00100_00000_00000000000;
             3'b010: instruction = 32'b000000_00101_00110_00000_00000000000;
