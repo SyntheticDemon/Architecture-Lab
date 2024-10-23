@@ -1,11 +1,4 @@
-C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module IF_Stage
-
-Top level modules:
-	IF_Stage
-
-} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v
+C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module IF_Stage_Reg
 
