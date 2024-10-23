@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module pc_incrementer
@@ -44,6 +45,9 @@ Top level modules:
 	IF_Stage
 
 } {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v
+=======
+C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v
+>>>>>>> origin/main
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module IF_Stage_Reg
 
