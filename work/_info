@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 m255
 K3
 13
@@ -139,3 +140,185 @@ Z66 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v|
 !i10b 1
 !s85 0
 !s101 -O0
+=======
+m255
+K3
+13
+cModel Technology
+Z0 dC:\altera\13.0sp1
+vbranch_mux
+Z1 !s100 SS1kmAe;@9MLTQC@KijgB1
+Z2 I<bb5PO7hEgKVhR1V^oASC2
+Z3 VU^`]mXl0l:@MYm]FCG]FB2
+Z4 dC:\Users\SyntheticDemon\Desktop\ARM-001
+Z5 w1729667064
+Z6 8C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v
+Z7 FC:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v
+L0 1
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v|
+Z10 o-work work -O0
+Z11 !s108 1729668775.997000
+Z12 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vIF_Stage
+Z13 !s100 Ob7]digfQa?2dSgRHzf`P3
+Z14 I6TK4XXe<XmA[2h@7h6aIK1
+Z15 V@;EAl>bPJPEEYb<BIidE80
+R4
+Z16 w1729668750
+Z17 8C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v
+Z18 FC:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v
+L0 1
+R8
+r1
+31
+Z19 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v|
+R10
+Z20 n@i@f_@stage
+Z21 !s108 1729668776.057000
+Z22 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vIF_Stage_Reg
+Z23 !s100 a_h`NolMB[TCC;Kb^;We62
+Z24 Ik[SO94kao`[8n_h9<He;a1
+Z25 VT<83U3PaMTOEUg=lKR6@i1
+R4
+Z26 w1729668067
+Z27 8C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v
+Z28 FC:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v
+L0 1
+R8
+r1
+31
+Z29 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v|
+R10
+Z30 n@i@f_@stage_@reg
+Z31 !s108 1729668776.087000
+Z32 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vIF_Stage_Testbench
+Z33 !s100 8B4c;zjJ;B:029]F`WI5X3
+Z34 IPAI4moebPQ3`Gg?dYHT5H0
+Z35 VJz@<6Rje<E3iiGGf2FR:13
+R4
+Z36 w1729668664
+Z37 8C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v
+Z38 FC:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v
+L0 3
+R8
+r1
+31
+Z39 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v|
+R10
+Z40 n@i@f_@stage_@testbench
+!i10b 1
+!s85 0
+Z41 !s108 1729668776.117000
+Z42 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v|
+!s101 -O0
+vinstruction_memory
+Z43 !s100 Nb4NX6[6K71fLPEHScHDg2
+Z44 I_[IoaVIQV37E0K:BnfXZ;0
+Z45 VzZHP4;XRAdC:V91j=@c`91
+R4
+Z46 w1729668194
+Z47 8C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v
+Z48 FC:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v
+L0 1
+R8
+r1
+31
+Z49 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v|
+R10
+Z50 !s108 1729668775.940000
+Z51 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vinstruction_memory_tb
+Z52 !s100 KBhBGgSO;bLE610JBPghR1
+Z53 IG][9H=>KEzJbIc[aH?g0J3
+Z54 VL`_<I?MdO^Ah<Xf8i?GT:2
+R4
+Z55 w1729665973
+Z56 8C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v
+Z57 FC:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v
+L0 4
+R8
+r1
+31
+Z58 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v|
+R10
+Z59 !s108 1729668775.972000
+Z60 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vPC
+Z61 !s100 ;mUa]5Mcd6Q_OKfPc<=ZL0
+Z62 IgI@:gA3b16_gR80OSLKYl2
+Z63 VMTnG_6Ybn^JlG80<Qb0Ua3
+R4
+Z64 w1729668229
+Z65 8C:/Users/SyntheticDemon/Desktop/ARM-001/PC.v
+Z66 FC:/Users/SyntheticDemon/Desktop/ARM-001/PC.v
+L0 1
+R8
+r1
+31
+Z67 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/PC.v|
+R10
+n@p@c
+Z68 !s108 1729668689.532000
+Z69 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/PC.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vpc_incrementer
+Z70 !s100 n_VgkiR3zP4cDl2dgGlQe2
+Z71 IWdR6X9@9BzamAR_PANGz60
+Z72 Vhalhc;1[P]=]@B8lY<STL2
+R4
+Z73 w1729668532
+Z74 8C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v
+Z75 FC:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v
+L0 1
+R8
+r1
+31
+Z76 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v|
+R10
+Z77 !s108 1729668776.027000
+Z78 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vprogram_counter
+!i10b 1
+!s100 Z0Z_O3^FZZK]m7bEm]EUR1
+ImoHDcRmm`P2<I`NRLeo<42
+V>k2C?e1VdV09m<J?6g=Sg2
+R4
+w1729668755
+8C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v
+FC:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v
+L0 1
+R8
+r1
+!s85 0
+31
+!s108 1729668776.147000
+!s107 C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v|
+!s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v|
+!s101 -O0
+R10
+>>>>>>> origin/main
