@@ -160,7 +160,7 @@ r1
 31
 Z9 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v|
 Z10 o-work work -O0
-Z11 !s108 1729668775.997000
+Z11 !s108 1729670228.209000
 Z12 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v|
 !i10b 1
 !s85 0
@@ -180,7 +180,7 @@ r1
 Z19 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v|
 R10
 Z20 n@i@f_@stage
-Z21 !s108 1729668776.057000
+Z21 !s108 1729670228.266000
 Z22 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v|
 !i10b 1
 !s85 0
@@ -200,17 +200,17 @@ r1
 Z29 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v|
 R10
 Z30 n@i@f_@stage_@reg
-Z31 !s108 1729668776.087000
+Z31 !s108 1729670228.296000
 Z32 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vIF_Stage_Testbench
-Z33 !s100 8B4c;zjJ;B:029]F`WI5X3
-Z34 IPAI4moebPQ3`Gg?dYHT5H0
+Z33 !s100 kDdZe[H?;XlW;VXgdU:YM0
+Z34 IL8lZ=235e2Ga:]SN`=VIQ0
 Z35 VJz@<6Rje<E3iiGGf2FR:13
 R4
-Z36 w1729668664
+Z36 w1729670214
 Z37 8C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v
 Z38 FC:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v
 L0 3
@@ -222,7 +222,7 @@ R10
 Z40 n@i@f_@stage_@testbench
 !i10b 1
 !s85 0
-Z41 !s108 1729668776.117000
+Z41 !s108 1729670228.320000
 Z42 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v|
 !s101 -O0
 vinstruction_memory
@@ -230,7 +230,7 @@ Z43 !s100 Nb4NX6[6K71fLPEHScHDg2
 Z44 I_[IoaVIQV37E0K:BnfXZ;0
 Z45 VzZHP4;XRAdC:V91j=@c`91
 R4
-Z46 w1729668194
+Z46 w1729670020
 Z47 8C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v
 Z48 FC:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v
 L0 1
@@ -239,7 +239,7 @@ r1
 31
 Z49 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v|
 R10
-Z50 !s108 1729668775.940000
+Z50 !s108 1729670228.156000
 Z51 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v|
 !i10b 1
 !s85 0
@@ -258,7 +258,7 @@ r1
 31
 Z58 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v|
 R10
-Z59 !s108 1729668775.972000
+Z59 !s108 1729670228.177000
 Z60 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v|
 !i10b 1
 !s85 0
@@ -297,28 +297,28 @@ r1
 31
 Z76 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v|
 R10
-Z77 !s108 1729668776.027000
+Z77 !s108 1729670228.240000
 Z78 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vprogram_counter
 !i10b 1
-!s100 Z0Z_O3^FZZK]m7bEm]EUR1
-ImoHDcRmm`P2<I`NRLeo<42
-V>k2C?e1VdV09m<J?6g=Sg2
+Z79 !s100 Z0Z_O3^FZZK]m7bEm]EUR1
+Z80 ImoHDcRmm`P2<I`NRLeo<42
+Z81 V>k2C?e1VdV09m<J?6g=Sg2
 R4
-w1729668755
-8C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v
-FC:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v
+Z82 w1729668755
+Z83 8C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v
+Z84 FC:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v
 L0 1
 R8
 r1
 !s85 0
 31
-!s108 1729668776.147000
+!s108 1729670228.352000
 !s107 C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v|
-!s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v|
+Z85 !s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v|
 !s101 -O0
 R10
 >>>>>>> origin/main
