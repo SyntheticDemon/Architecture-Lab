@@ -13,7 +13,7 @@ module IF_Stage (
     wire [31:0] selected_address;   // Address selected by branch_mux
 
     // Instantiate the program counter
-    program_counter pc_module (
+    PC pc_module (
         .clk(clk),
         .reset(rst),
         .freeze(freeze),

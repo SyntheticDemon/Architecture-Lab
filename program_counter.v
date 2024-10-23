@@ -1,4 +1,4 @@
-module PC (
+module program_counter (
     input clk,                // Clock signal
     input reset,              // Reset signal
     input freeze,             // Freeze signal
