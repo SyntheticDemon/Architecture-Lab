@@ -2,4 +2,23 @@ m255
 K3
 13
 cModel Technology
-dC:\altera\13.0sp1
+Z0 dC:\altera\13.0sp1
+vinstruction_memory
+!i10b 1
+!s100 f<KjJ>imS=GVG1B@L>2TK3
+IAOLfY0OGS8b?Pd07f:C^12
+Vhha2WWA;27m0OgnTCOeg60
+dC:\Users\SyntheticDemon\Desktop\ARM-001
+w1729665623
+8C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v
+FC:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v
+L0 1
+OV;L;10.1d;51
+r1
+!s85 0
+31
+!s108 1729665718.538000
+!s107 C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v|
+!s90 -reportprogress|300|-work|work|C:/Users/SyntheticDemon/Desktop/ARM-001/instruction_memory.v|
+!s101 -O0
+o-work work -O0
