@@ -7,13 +7,11 @@ module IF_Stage (
     output [31:0] PC,              // Program counter output
     output [31:0] Instruction      // Fetched instruction output
 );
-
-    // Internal signals
     wire [31:0] next_address;       // Next sequential address (PC + 4)
     wire [31:0] selected_address;   // Address selected by branch_mux
 
     // Instantiate the program counter
-    PC pc_module (
+    program_counter pc_module (
         .clk(clk),
         .reset(rst),
         .freeze(freeze),

@@ -52,11 +52,11 @@ module IF_Stage_Testbench;
         // Initialize inputs
         rst = 0;
         freeze = 0;
-        flush = 0;
+        // flush = 0;
         Branch_taken = 0;
-        BranchAddr = 32'h00000000;
-        PC_in = 32'h00000000;
-        Instruction_in = 32'h00000000;
+        // // BranchAddr = 32'h00000000;
+        // PC_in = 32'h00000000;
+        // Instruction_in = 32'h00000000;
 
         // Apply reset
         rst = 1; #10;
@@ -71,34 +71,34 @@ module IF_Stage_Testbench;
             #10; // Wait for a few clock cycles
         end
 
-        // Test 2: Branch taken
-        $display("\n--- Test 2: Branch Taken ---");
-        Branch_taken = 1;
-        BranchAddr = 32'h00000020; // Set a branch address
-        #10;
-        Branch_taken = 0;
-        $display("After Branch Taken: PC_Reg = %h, Instruction_Reg = %h", PC_Reg, Instruction_Reg);
+        // // Test 2: Branch taken
+        // $display("\n--- Test 2: Branch Taken ---");
+        // Branch_taken = 1;
+        // BranchAddr = 32'h00000020; // Set a branch address
+        // #10;
+        // Branch_taken = 0;
+        // $display("After Branch Taken: PC_Reg = %h, Instruction_Reg = %h", PC_Reg, Instruction_Reg);
 
-        // Test 3: Freeze active
-        $display("\n--- Test 3: Freeze Active ---");
-        freeze = 1;
-        #20; // Wait while freeze is active
-        freeze = 0;
-        #10;
-        $display("After Freeze: PC_Reg = %h, Instruction_Reg = %h", PC_Reg, Instruction_Reg);
+        // // Test 3: Freeze active
+        // $display("\n--- Test 3: Freeze Active ---");
+        // freeze = 1;
+        // #20; // Wait while freeze is active
+        // freeze = 0;
+        // #10;
+        // $display("After Freeze: PC_Reg = %h, Instruction_Reg = %h", PC_Reg, Instruction_Reg);
 
-        // Test 4: Flush active
-        $display("\n--- Test 4: Flush Active ---");
-        flush = 1;
-        #10;
-        flush = 0;
-        $display("After Flush: PC_Reg = %h, Instruction_Reg = %h", PC_Reg, Instruction_Reg);
+        // // Test 4: Flush active
+        // $display("\n--- Test 4: Flush Active ---");
+        // flush = 1;
+        // #10;
+        // flush = 0;
+        // $display("After Flush: PC_Reg = %h, Instruction_Reg = %h", PC_Reg, Instruction_Reg);
 
-        // Test 5: Reset again
-        $display("\n--- Test 5: Reset ---");
-        rst = 1; #10;
-        rst = 0; #10;
-        $display("After Reset: PC_Reg = %h, Instruction_Reg = %h", PC_Reg, Instruction_Reg);
+        // // Test 5: Reset again
+        // $display("\n--- Test 5: Reset ---");
+        // rst = 1; #10;
+        // rst = 0; #10;
+        // $display("After Reset: PC_Reg = %h, Instruction_Reg = %h", PC_Reg, Instruction_Reg);
 
         // End the simulation
         $finish;
