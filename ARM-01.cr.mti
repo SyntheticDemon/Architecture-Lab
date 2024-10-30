@@ -1,9 +1,16 @@
-C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v
+C:/Users/SyntheticDemon/Desktop/ARM-001/TB_ID_Stage.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/TB_ID_Stage.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module IF_Stage
+-- Compiling module ID_Stage_Testbench
 
 Top level modules:
-	IF_Stage
+	ID_Stage_Testbench
+
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/ID_Stage_Reg.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/ID_Stage_Reg.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module ID_Stage_Reg
+
+Top level modules:
+	ID_Stage_Reg
 
 } {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/pc_incrementer.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -19,26 +26,26 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	instruction_memory
 
-} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v {1 {vlog -work work {C:\Users\SyntheticDemon\Desktop\ARM-001\program_counter.v}
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module IF_Stage
+
+Top level modules:
+	IF_Stage
+
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_TB.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module IF_Stage_Testbench
+
+Top level modules:
+	IF_Stage_Testbench
+
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/program_counter.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module program_counter
 
 Top level modules:
 	program_counter
-
-} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module branch_mux
-
-Top level modules:
-	branch_mux
-
-} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/TB_instruction_memory.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module instruction_memory_tb
-
-Top level modules:
-	instruction_memory_tb
 
 } {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/IF_Stage_Reg.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -46,5 +53,12 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 
 Top level modules:
 	IF_Stage_Reg
+
+} {} {}} C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v {1 {vlog -work work C:/Users/SyntheticDemon/Desktop/ARM-001/branch_mux.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module branch_mux
+
+Top level modules:
+	branch_mux
 
 } {} {}}
