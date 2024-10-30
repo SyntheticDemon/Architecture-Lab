@@ -305,12 +305,14 @@ inout	[35:0]	GPIO_1;					//	GPIO Connection 1
 wire freeze;
 assign freeze=1'b0;
 reg [31:0] BranchAddr;
-reg [31:0] PC_in;
-reg [31:0] Instruction_in;
+//reg [31:0] PC_in;
+//reg [31:0] Instruction_in;
 wire [31:0] PC;
 wire [31:0] Instruction;
-wire [31:0] PC_Reg;
-wire [31:0] Instruction_Reg;
+wire [31:0] PC_Reg_IF;
+wire [31:0] Instruction_Reg_IF;
+wire [31:0] PC_Reg_ID;
+wire [31:0] Instruction_Reg_ID;
 
  IF_Stage if_stage_inst (
         .clk(CLOCK_50),
@@ -331,9 +333,21 @@ wire [31:0] Instruction_Reg;
         .flush(flush),
         .PC_in(PC),
         .Instruction_in(Instruction),
-        .PC(PC_Reg),
-		  .Instruction(Instruction_Reg)
+        .PC(PC_Reg_IF),
+		  .Instruction(Instruction_Reg_IF)
       );
+
+ ID_Reg ID_stage_reg_inst (
+        .clk(CLOCK_50),
+        .rst(SW[2]),
+        .freeze(freeze),
+        .flush(flush),
+        .pc_in(PC_Reg_IF),
+        .inst_in(Instruction_Reg_IF),
+        .pc_out(PC_Reg_ID),
+		  .inst_out(Instruction_Reg_ID)
+      );
+
 
 assign LEDR[0] = SW[0] | SW[1];
 endmodule
