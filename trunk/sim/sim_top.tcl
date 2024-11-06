@@ -21,6 +21,8 @@ vlog    +acc -incr -source  +define+SIM     $hdl_path/IF_Stage_Reg.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/instruction_memory.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/pc_incrementer.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/program_counter.v
+vlog    +acc -incr -source  +define+SIM     $hdl_path/*.v
+
 
 # Include any header files from inc directory if needed
 vlog    +acc -incr -source  +incdir+$inc_path +define+SIM   ./tb/$TB.v
