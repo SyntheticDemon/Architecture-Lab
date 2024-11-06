@@ -4,7 +4,7 @@ clc
 exec vlib work
 vmap work work
 
-set TB                  "TB_ID_Stage"
+set TB                  "ID_Stage_Testbench"
 set hdl_path           "../src/hdl"
 set inc_path           "../src/inc"
 
@@ -16,9 +16,8 @@ set run_time           "1 us"
 vlog    +acc -incr -source  +define+SIM     $hdl_path/branch_mux.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/ID_Stage_Reg.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/ID_Stage.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/IF_Stage_Reg.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/IF_Stage_TB.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/IF_Stage.v
+vlog    +acc -incr -source  +define+SIM     $hdl_path/IF_Stage_Reg.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/instruction_memory.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/pc_incrementer.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/program_counter.v
@@ -33,7 +32,7 @@ vsim    -voptargs=+acc -debugDB $TB
 
 #======================= adding signals to wave window ==========================
 add wave -hex -group    {TB}                sim:/$TB/*
-add wave -hex -group    {top}               sim:/$TB/uut/*  
+#add wave -hex -group    {top}               sim:/$TB/uut/*  
 add wave -hex -group -r {all}               sim:/$TB/*
 
 #=========================== Configure wave signals =============================
