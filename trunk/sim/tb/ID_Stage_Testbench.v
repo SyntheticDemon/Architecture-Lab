@@ -8,9 +8,6 @@ module ID_Stage_Testbench;
     reg freeze;
     reg flush;
     reg Branch_taken;
-    reg [31:0] BranchAddr;
-    reg [31:0] PC_in;
-    reg [31:0] Instruction_in;
 
     // Outputs from IF_Stage and IF_Stage_Reg
     wire [31:0] PC;
@@ -36,7 +33,10 @@ module ID_Stage_Testbench;
     wire imm_ID;
     wire [11:0] Shift_operand;    // Shift operand output
     wire [23:0] Signed_imm_24;    // Signed immediate value output
+    wire [23:0] Signed_imm_24_reg;    // Signed immediate value output
+    wire [11:0] Shift_operand_reg;    // Shift operand output
     wire [3:0] Dest;              // Destination register output
+    wire [3:0] Dest_reg;              // Destination register output
     wire [3:0] src1, src2;        // Source register addresses
     wire Two_src;                 // Two source operand indicator
 
@@ -46,7 +46,6 @@ module ID_Stage_Testbench;
         .rst(rst),
         .freeze(freeze),
         .Branch_taken(Branch_taken),
-        .BranchAddr(BranchAddr),
         .PC(PC),
         .Instruction(Instruction)
     );
@@ -114,9 +113,9 @@ module ID_Stage_Testbench;
         .Val_Rn(Val_Rn),             // Output value of Rn
         .Val_Rm(Val_Rm),             // Output value of Rm
         .imm(imm_ID),
-        .Shift_operand(Shift_operand), // Output shift operand
-        .Signed_imm_24(Signed_imm_24), // Output signed immediate
-        .Dest(Dest)                  // Output destination register
+        .Shift_operand(Shift_operand_reg), // Output shift operand
+        .Signed_imm_24(Signed_imm_24_reg), // Output signed immediate
+        .Dest(Dest_reg)                  // Output destination register
     );
 
     // Clock generation
@@ -147,7 +146,7 @@ module ID_Stage_Testbench;
 
             // Display the current PC and lagged values
             $display("Current PC_Reg = %h, Lagged PC (1 cycle) = %h, Lagged PC (2 cycles) = %h",
-                     PC, PC_Reg_IF, PC_Reg_ID); // Print current and lagged PC
+                     PC, PC_Reg_IF, PC_Reg_ID, Instruction_Reg,Instruction_Reg); // Print current and lagged PC
         end
 
         // End the simulation
