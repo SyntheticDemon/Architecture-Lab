@@ -11,8 +11,8 @@ module ID_Stage_Reg (
     input [31:0] PC_IN,     // Program counter input
     input [31:0] Val_Rn_IN, // Value of Rn input
     input [31:0] Val_Rm_IN, // Value of Rm input
-    input [31:0] imm_IN,    // Immediate input
-    input [11:0] Shift_operand_IN, // Shift operand input
+    input imm_IN,    // Immediate input
+    input signed [11:0] Shift_operand_IN, // Shift operand input
     input [23:0] Signed_imm_24_IN, // Signed immediate value input
     input [3:0] Dest_IN,    // Destination register input
     // outputs
@@ -24,7 +24,6 @@ module ID_Stage_Reg (
     output reg [31:0] PC,   // Program counter
     output reg [31:0] Val_Rn, // Value of Rn
     output reg [31:0] Val_Rm, // Value of Rm
-    output reg [31:0] imm,   // Immediate value
     output reg [11:0] Shift_operand, // Shift operand
     output reg [23:0] Signed_imm_24, // Signed immediate value
     output reg [3:0] Dest   // Destination register
