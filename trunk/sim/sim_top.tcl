@@ -13,14 +13,6 @@ set run_time           "1 us"
 
 #============================ Add verilog files  ===============================
 # Add all required HDL files
-vlog    +acc -incr -source  +define+SIM     $hdl_path/branch_mux.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/ID_Stage_Reg.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/ID_Stage.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/IF_Stage.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/IF_Stage_Reg.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/instruction_memory.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/pc_incrementer.v
-vlog    +acc -incr -source  +define+SIM     $hdl_path/program_counter.v
 vlog    +acc -incr -source  +define+SIM     $hdl_path/*.v
 
 
