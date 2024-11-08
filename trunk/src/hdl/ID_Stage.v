@@ -50,13 +50,13 @@ module ID_Stage (
     // Two source operands indicator
     assign Two_src = ~imm | MEM_W_EN;
 
-    ConditionCheck cc(
+    ConditionCheck condition_check(
         .condition(cond_code),
         .status(SR),
         .result(cond_result)
     );
 
-    ControlUnit cu(
+    ControlUnit control_unit(
         .mode(mode),
         .opcode(opcode),
         .sIn(Instruction[20]),
