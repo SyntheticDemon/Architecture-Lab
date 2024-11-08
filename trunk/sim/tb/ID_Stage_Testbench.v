@@ -3,7 +3,7 @@
 module ID_Stage_Testbench;
 
     // Inputs for IF_Stage and IF_Stage_Reg
- reg clk;
+    reg clk;
     reg rst;
     reg freeze;
     reg flush;
@@ -32,7 +32,8 @@ module ID_Stage_Testbench;
     wire [3:0] EXE_CMD;           // Execution command output
     wire [31:0] Val_Rn;           // Value of Rn output
     wire [31:0] Val_Rm;           // Value of Rm output
-    wire imm;              // Immediate value output
+    wire imm;                     // Immediate value output
+    wire imm_ID;
     wire [11:0] Shift_operand;    // Shift operand output
     wire [23:0] Signed_imm_24;    // Signed immediate value output
     wire [3:0] Dest;              // Destination register output
@@ -62,9 +63,8 @@ module ID_Stage_Testbench;
         .Instruction(Instruction_Reg)
     );
 
-
     // Instantiate the ID_Stage module
-   ID_Stage id_stage_inst (
+    ID_Stage id_stage_inst (
         .clk(clk),
         .rst(rst),
         .Instruction(Instruction_Reg), // Instruction from IF_Stage_Reg
@@ -88,7 +88,6 @@ module ID_Stage_Testbench;
         .Two_src(Two_src)              // Two source operand indicator
     );
 
-
     // Instantiate the ID_Stage_Reg module
     ID_Stage_Reg id_stage_reg_inst (
         .clk(clk),
@@ -97,9 +96,9 @@ module ID_Stage_Testbench;
         .WB_EN_IN(writeBackEn),      // Pass in writeBackEn
         .MEM_R_EN_IN(MEM_R_EN),      // Pass in MEM_R_EN if needed
         .MEM_W_EN_IN(MEM_W_EN),      // Pass in MEM_W_EN if needed
-        .B_IN(Branch_taken),          // Pass in branch signal if needed
+        .B_IN(Branch_taken),         // Pass in branch signal if needed
         .EXE_CMD_IN(EXE_CMD),        // Pass in execution command if needed
-        .PC_IN(PC_Reg_IF),              // Pass in the PC from IF_Stage_Reg
+        .PC_IN(PC_Reg_IF),           // Pass in the PC from IF_Stage_Reg
         .Val_Rn_IN(Val_Rn),          // Pass in Val_Rn if needed
         .Val_Rm_IN(Val_Rm),          // Pass in Val_Rm if needed
         .imm_IN(imm),                // Pass in immediate value if needed
@@ -109,11 +108,12 @@ module ID_Stage_Testbench;
         .WB_EN(WB_EN),               // Output write back enable
         .MEM_R_EN(MEM_R_EN),         // Output memory read enable
         .MEM_W_EN(MEM_W_EN),         // Output memory write enable
-        .B(B),                        // Output branch signal
+        .B(B),                       // Output branch signal
         .EXE_CMD(EXE_CMD),           // Output execution command
         .PC(PC_Reg_ID),
         .Val_Rn(Val_Rn),             // Output value of Rn
         .Val_Rm(Val_Rm),             // Output value of Rm
+        .imm(imm_ID),
         .Shift_operand(Shift_operand), // Output shift operand
         .Signed_imm_24(Signed_imm_24), // Output signed immediate
         .Dest(Dest)                  // Output destination register
@@ -131,11 +131,17 @@ module ID_Stage_Testbench;
         rst = 0;
         freeze = 0;
         Branch_taken = 0;
-
+        flush = 0;
+        Result_WB = 32'h0;
+        writeBackEn = 0;
+        Dest_wb = 4'b0000;
+        hazard = 0;
+        SR = 4'b0000;
+        
         // Apply reset
         rst = 1; #10;
         rst = 0; #10;
-        
+
         repeat (7) begin
             #10; // Wait for a few clock cycles
 
