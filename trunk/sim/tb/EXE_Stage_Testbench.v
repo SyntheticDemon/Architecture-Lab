@@ -178,6 +178,13 @@ module EXE_Stage_Testbench;
         .instruction(EXE_stage_instruction_out)
     );
 
+    wire [31:0] EXE_reg_pc_out;
+    wire [31:0] EXE_reg_instruction_out;
+    wire [`REG_FILE_DEPTH-1:0] EXE_reg_dst_out;
+    wire [31:0] EXE_reg_ALU_res_out;
+    wire [31:0] EXE_reg_val_Rm_out;
+    wire EXE_reg_mem_read_out, EXE_reg_mem_write_out, EXE_reg_WB_en_out;
+
     // EXE Stage Register instantiation
     EXE_Stange_Reg exe_stage_reg_inst (
         .clk(clk),
@@ -190,14 +197,14 @@ module EXE_Stage_Testbench;
         .WB_en_in(EXE_stage_WB_en_out),
         .val_Rm_in(EXE_stage_val_Rm_out),
         .ALU_res_in(ALU_res),
-        .dst_out(Dest_reg),
-        .ALU_res_out(Mem_Stage_ALU_res_out),
-        .val_Rm_out(Val_Rm_reg),
-        .mem_read_out(MEM_R_EN_reg),
-        .mem_write_out(MEM_W_EN_reg),
-        .WB_en_out(WB_EN_reg),
-        .pc(PC_Reg_ID),
-        .instruction(Instruction_Reg)
+        .dst_out(EXE_reg_dst_out),
+        .ALU_res_out(EXE_reg_ALU_res_out),
+        .val_Rm_out(EXE_reg_val_Rm_out),
+        .mem_read_out(EXE_reg_mem_read_out),
+        .mem_write_out(EXE_reg_mem_write_out),
+        .WB_en_out(EXE_reg_WB_en_out),
+        .pc(EXE_reg_pc_out),
+        .instruction(EXE_reg_instruction_out)
     );
 
     
