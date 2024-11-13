@@ -1,8 +1,6 @@
-`include "settings.h"
-
 module Val2_Generator
 (
-    input       [23:0]    shifter_operand,
+    input       [11:0]    shifter_operand,
     input                           imm, is_for_memory,
     input   [31:0]       val_Rm,
     output reg [31:0]   val2_out

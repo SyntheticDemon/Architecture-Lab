@@ -39,13 +39,13 @@ module EXE_Stage
   wire [31:0] alu_src1;
   wire [31:0] alu_src2;
 
-  MUX_4_to_1 #(.WORD_WIDTH(32)) MUX_ALU_sel1 (
+  MUX_4_to_1 #(.DATA_WIDTH(32)) MUX_ALU_sel1 (
 		.in1(val_Rn_in), .in2(MEM_stage_val), .in3(WB_stage_val), .in4(val_Rn_in),
 		.sel(sel_src1),
 		.out(alu_src1)
 	);
 
-  MUX_4_to_1 #(.WORD_WIDTH(32)) MUX_ALU_sel2 (
+  MUX_4_to_1 #(.DATA_WIDTH(32)) MUX_ALU_sel2 (
 		.in1(val_Rm_in), .in2(MEM_stage_val), .in3(WB_stage_val), .in4(val_Rm_in),
 		.sel(sel_src2),
 		.out(alu_src2)

@@ -1,4 +1,7 @@
 module MUX_4_to_1
+#(
+    parameter DATA_WIDTH = 32  // Bit-width of each input
+)
 (
   sel,
   in1,

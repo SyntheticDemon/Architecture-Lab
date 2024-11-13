@@ -55,6 +55,7 @@ module EXE_Stage_Testbench;
         .rst(rst),
         .freeze(freeze),
         .Branch_taken(Branch_taken),
+        .BranchAddr(),
         .PC(PC),
         .Instruction(Instruction)
     );
@@ -133,7 +134,7 @@ module EXE_Stage_Testbench;
 
     wire [31:0] EXE_stage_pc_out;
     wire [31:0] EXE_stage_instruction_out;
-    wire [`REG_FILE_DEPTH-1:0] EXE_stage_reg_file_dst_out;
+    wire [3:0] EXE_stage_reg_file_dst_out;
     wire [31:0] EXE_stage_val_Rm_out;
     wire [3:0] EXE_stage_SR_out;
     wire [31:0] ALU_res;
@@ -169,7 +170,7 @@ module EXE_Stage_Testbench;
         .SR_out(EXE_stage_SR_out),
         .ALU_res(ALU_res),
         .val_Rm_out(EXE_stage_val_Rm_out),
-        .branch_address(Branch_taken),
+        .branch_address(),
         .mem_read_out(EXE_stage_mem_read_out),
         .mem_write_out(EXE_stage_mem_write_out),
         .WB_en_out(EXE_stage_WB_en_out),
@@ -180,7 +181,7 @@ module EXE_Stage_Testbench;
 
     wire [31:0] EXE_reg_pc_out;
     wire [31:0] EXE_reg_instruction_out;
-    wire [`REG_FILE_DEPTH-1:0] EXE_reg_dst_out;
+    wire [3:0] EXE_reg_dst_out;
     wire [31:0] EXE_reg_ALU_res_out;
     wire [31:0] EXE_reg_val_Rm_out;
     wire EXE_reg_mem_read_out, EXE_reg_mem_write_out, EXE_reg_WB_en_out;
