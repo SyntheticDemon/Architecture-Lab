@@ -25,6 +25,8 @@ module ID_Stage (
     // to hazard detect module
     output [3:0] src1,        // Source 1
     output [3:0] src2,        // Source 2
+    output B,
+    output S,
     output Two_src            // Indicator for two source operands
 );
 
@@ -97,7 +99,7 @@ module ID_Stage (
         .in0({ctrl_aluCmd, ctrl_memRead, ctrl_memWrite, ctrl_wbEn, ctrl_branch, ctrl_s}),
         .in1(9'd0),
         .sel(cond_final),
-        .out({EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, ctrl_branch, ctrl_s})
+        .out({EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, B, S})
     );
 
 endmodule

@@ -6,7 +6,8 @@ module ID_Stage_Reg (
     input WB_EN_IN,          // Write back enable input
     input MEM_R_EN_IN,       // Memory read enable input
     input MEM_W_EN_IN,       // Memory write enable input
-    input B_IN,              // Branch input
+    input B_in,              // Branch input
+    input S_in,              // Branch input
     input [3:0] EXE_CMD_IN,  // Execution command input
     input [31:0] PC_IN,      // Program counter input
     input [31:0] Val_Rn_IN,  // Value of Rn input
@@ -19,7 +20,6 @@ module ID_Stage_Reg (
     output reg WB_EN,        // Write back enable
     output reg MEM_R_EN,     // Memory read enable
     output reg MEM_W_EN,     // Memory write enable
-    output reg B,            // Branch signal
     output reg [3:0] EXE_CMD, // Execution command
     output reg [31:0] PC,    // Program counter
     output reg [31:0] Val_Rn, // Value of Rn
@@ -27,7 +27,9 @@ module ID_Stage_Reg (
     output reg imm,          // Immediate signal
     output reg [11:0] Shift_operand, // Shift operand
     output reg [23:0] Signed_imm_24, // Signed immediate value
-    output reg [3:0] Dest    // Destination register
+    output reg [3:0] Dest,    // Destination register
+    output reg B_out,
+    output reg S_out
 );
 
     // Sequential logic for the registers
@@ -36,7 +38,8 @@ module ID_Stage_Reg (
             WB_EN <= 1'b0;
             MEM_R_EN <= 1'b0;
             MEM_W_EN <= 1'b0;
-            B <= 1'b0;
+            B_out <= 1'b0;
+            S_out <= 1'b0;
             EXE_CMD <= 4'b0;
             PC <= 32'b0;
             Val_Rn <= 32'b0;
@@ -49,7 +52,8 @@ module ID_Stage_Reg (
             WB_EN <= 1'b0;
             MEM_R_EN <= 1'b0;
             MEM_W_EN <= 1'b0;
-            B <= 1'b0;
+            B_out <= 1'b0;
+            S_out <= 1'b0;
             EXE_CMD <= 4'b0;
             PC <= 32'b0;
             Val_Rn <= 32'b0;
@@ -62,7 +66,8 @@ module ID_Stage_Reg (
             WB_EN <= WB_EN_IN;
             MEM_R_EN <= MEM_R_EN_IN;
             MEM_W_EN <= MEM_W_EN_IN;
-            B <= B_IN;
+            B_out <= B_in;
+            S_out <= S_in;
             EXE_CMD <= EXE_CMD_IN;
             PC <= PC_IN;
             Val_Rn <= Val_Rn_IN;

@@ -8,7 +8,7 @@ module ID_Stage_Testbench;
     reg freeze;
     reg flush;
     reg Branch_taken;
-
+    // TODO give branch taken
     // Outputs from IF_Stage and IF_Stage_Reg
     wire [31:0] PC;
     wire [31:0] PC_Reg_ID;
@@ -24,11 +24,17 @@ module ID_Stage_Testbench;
     reg [3:0] SR;                 // Status Register
 
     wire WB_EN;                   // Write-back enable output
+    wire WB_EN_reg;                   // Write-back enable output
     wire MEM_R_EN;                // Memory read enable output
+    wire MEM_R_EN_reg;                // Memory read enable output
     wire MEM_W_EN;                // Memory write enable output
+    wire MEM_W_EN_reg;                // Memory write enable output
     wire [3:0] EXE_CMD;           // Execution command output
+    wire [3:0] EXE_CMD_reg;           // Execution command output
     wire [31:0] Val_Rn;           // Value of Rn output
     wire [31:0] Val_Rm;           // Value of Rm output
+    wire [31:0] Val_Rn_reg;           // Value of Rn output
+    wire [31:0] Val_Rm_reg;           // Value of Rm output
     wire imm;                     // Immediate value output
     wire imm_ID;
     wire [11:0] Shift_operand;    // Shift operand output
@@ -39,7 +45,10 @@ module ID_Stage_Testbench;
     wire [3:0] Dest_reg;              // Destination register output
     wire [3:0] src1, src2;        // Source register addresses
     wire Two_src;                 // Two source operand indicator
-
+    wire B;
+    wire S;
+    wire B_reg;
+    wire S_reg;
     // Instantiate the IF_Stage module
     IF_Stage if_stage_inst (
         .clk(clk),
@@ -84,6 +93,8 @@ module ID_Stage_Testbench;
         .Dest(Dest),                   // Destination register output
         .src1(src1),                   // Source 1 register
         .src2(src2),                   // Source 2 register
+        .B(B),
+        .S(S),
         .Two_src(Two_src)              // Two source operand indicator
     );
 
@@ -95,7 +106,8 @@ module ID_Stage_Testbench;
         .WB_EN_IN(writeBackEn),      // Pass in writeBackEn
         .MEM_R_EN_IN(MEM_R_EN),      // Pass in MEM_R_EN if needed
         .MEM_W_EN_IN(MEM_W_EN),      // Pass in MEM_W_EN if needed
-        .B_IN(Branch_taken),         // Pass in branch signal if needed
+        .B_in(B),         // Pass in branch signal if needed
+        .S_in(S),         // Pass in branch signal if needed
         .EXE_CMD_IN(EXE_CMD),        // Pass in execution command if needed
         .PC_IN(PC_Reg_IF),           // Pass in the PC from IF_Stage_Reg
         .Val_Rn_IN(Val_Rn),          // Pass in Val_Rn if needed
@@ -104,15 +116,16 @@ module ID_Stage_Testbench;
         .Shift_operand_IN(Shift_operand), // Pass in shift operand if needed
         .Signed_imm_24_IN(Signed_imm_24), // Pass in signed immediate if needed
         .Dest_IN(Dest),              // Pass in destination register if needed
-        .WB_EN(WB_EN),               // Output write back enable
-        .MEM_R_EN(MEM_R_EN),         // Output memory read enable
-        .MEM_W_EN(MEM_W_EN),         // Output memory write enable
-        .B(B),                       // Output branch signal
-        .EXE_CMD(EXE_CMD),           // Output execution command
+        .WB_EN(WB_EN_reg),               // Output write back enable
+        .MEM_R_EN(MEM_R_EN_reg),         // Output memory read enable
+        .MEM_W_EN(MEM_W_EN_reg),         // Output memory write enable
+        .EXE_CMD(EXE_CMD_reg),           // Output execution command
         .PC(PC_Reg_ID),
-        .Val_Rn(Val_Rn),             // Output value of Rn
-        .Val_Rm(Val_Rm),             // Output value of Rm
+        .Val_Rn(Val_Rn_reg),             // Output value of Rn
+        .Val_Rm(Val_Rm_reg),             // Output value of Rm
         .imm(imm_ID),
+        .B_out(B_reg),
+        .S_out(S_reg),
         .Shift_operand(Shift_operand_reg), // Output shift operand
         .Signed_imm_24(Signed_imm_24_reg), // Output signed immediate
         .Dest(Dest_reg)                  // Output destination register
@@ -141,16 +154,16 @@ module ID_Stage_Testbench;
         rst = 1; #10;
         rst = 0; #10;
 
-        repeat (7) begin
+        repeat (1000) begin
             #10; // Wait for a few clock cycles
 
             // Display the current PC and lagged values
-            $display("Current PC_Reg = %h, Lagged PC (1 cycle) = %h, Lagged PC (2 cycles) = %h",
-                     PC, PC_Reg_IF, PC_Reg_ID, Instruction_Reg,Instruction_Reg); // Print current and lagged PC
+            $display("Current PC_Reg = %h, Lagged PC (1 cycle) = %h, Lagged PC (2 cycles) = %h, Instruction = %h , Instruction_reg = %h",
+                     PC, PC_Reg_IF, PC_Reg_ID,Instruction,Instruction_Reg); // Print current and lagged PC
         end
 
         // End the simulation
-        $finish;
+        $stop;
     end
 
 endmodule
