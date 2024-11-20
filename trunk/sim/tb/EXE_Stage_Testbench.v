@@ -21,8 +21,6 @@ module EXE_Stage_Testbench;
     reg writeBackEn;              // Write-back enable signal
     reg [3:0] Dest_wb;            // Destination register address in Write-Back
     reg hazard;                   // Hazard detection signal
-    reg [3:0] SR;                 // Status Register
-
     wire WB_EN;                   // Write-back enable output
     wire WB_EN_reg;                   // Write-back enable output
     wire MEM_R_EN;                // Memory read enable output
@@ -37,6 +35,7 @@ module EXE_Stage_Testbench;
     wire [31:0] Val_Rm_reg;           // Value of Rm output
     wire imm;                     // Immediate value output
     wire imm_ID;
+    wire [3:0] SR_out;
     wire [11:0] Shift_operand;    // Shift operand output
     wire [23:0] Signed_imm_24;    // Signed immediate value output
     wire [23:0] Signed_imm_24_reg;    // Signed immediate value output
@@ -71,7 +70,6 @@ module EXE_Stage_Testbench;
         .PC(PC_Reg_IF),
         .Instruction(Instruction_Reg)
     );
-
     // Instantiate the ID_Stage module
     ID_Stage id_stage_inst (
         .clk(clk),
@@ -81,7 +79,7 @@ module EXE_Stage_Testbench;
         .writeBackEn(writeBackEn),     // Write-back enable
         .Dest_wb(Dest_wb),             // Destination register address
         .hazard(hazard),               // Hazard detection signal
-        .SR(SR),                       // Status Register
+        .SR(SR_out),                       // Status Register
         .WB_EN(WB_EN),                 // Write-back enable output
         .MEM_R_EN(MEM_R_EN),           // Memory read enable output
         .MEM_W_EN(MEM_W_EN),           // Memory write enable output
@@ -99,6 +97,7 @@ module EXE_Stage_Testbench;
         .Two_src(Two_src)              // Two source operand indicator
     );
 
+    wire [3:0] ID_SR_out;
     // Instantiate the ID_Stage_Reg module
     ID_Stage_Reg id_stage_reg_inst (
         .clk(clk),
@@ -125,8 +124,10 @@ module EXE_Stage_Testbench;
         .Val_Rn(Val_Rn_reg),             // Output value of Rn
         .Val_Rm(Val_Rm_reg),             // Output value of Rm
         .imm(imm_ID),
+        .SR_in(SR_out),
         .B_out(B_reg),
         .S_out(S_reg),
+        .SR_out(ID_SR_out),
         .Shift_operand(Shift_operand_reg), // Output shift operand
         .Signed_imm_24(Signed_imm_24_reg), // Output signed immediate
         .Dest(Dest_reg)                  // Output destination register
@@ -143,7 +144,7 @@ module EXE_Stage_Testbench;
 
     wire [1:0] EXE_sel_src1, EXE_sel_src2;
     wire [31:0] Mem_Stage_ALU_res_out;
-
+    wire [3:0] SR_final;
     // EXE Stage instantiation
     EXE_Stage exe_stage_inst (
         .clk(clk),
@@ -154,7 +155,7 @@ module EXE_Stage_Testbench;
         .WB_stage_val(Result_WB),
         .signed_immediate(Signed_imm_24_reg),
         .EX_command(EXE_CMD_reg),
-        .SR_in(SR),
+        .SR_in(ID_SR_out),
         .shifter_operand(Shift_operand_reg),
         .dst_in(Dest_reg),
         .mem_read_in(MEM_R_EN_reg),
@@ -164,10 +165,10 @@ module EXE_Stage_Testbench;
         .B_in(B_reg),
         .val_Rn_in(Val_Rn_reg),
         .val_Rm_in(Val_Rm_reg),
-        .sel_src1(EXE_sel_src1),
-        .sel_src2(EXE_sel_src2),
+        // .sel_src1(EXE_sel_src1),
+        // .sel_src2(EXE_sel_src2),
         .dst_out(Dest),
-        .SR_out(EXE_stage_SR_out),
+        .SR_out(SR_final),
         .ALU_res(ALU_res),
         .val_Rm_out(EXE_stage_val_Rm_out),
         .branch_address(),
@@ -178,14 +179,20 @@ module EXE_Stage_Testbench;
         .pc(EXE_stage_pc_out),
         .instruction(EXE_stage_instruction_out)
     );
-
     wire [31:0] EXE_reg_pc_out;
     wire [31:0] EXE_reg_instruction_out;
     wire [3:0] EXE_reg_dst_out;
     wire [31:0] EXE_reg_ALU_res_out;
     wire [31:0] EXE_reg_val_Rm_out;
     wire EXE_reg_mem_read_out, EXE_reg_mem_write_out, EXE_reg_WB_en_out;
-
+    Status_Reg status_register
+    (
+                .clk(clk),
+                .rst(rst),
+                .load(S_reg),
+                .status_in(SR_final),
+                .status(SR_out)
+    );
     // EXE Stage Register instantiation
     EXE_Stage_Reg exe_stage_reg_inst (
         .clk(clk),
@@ -225,7 +232,6 @@ module EXE_Stage_Testbench;
         writeBackEn = 0;
         Dest_wb = 4'b0000;
         hazard = 0;
-        SR = 4'b0000;
         
         // Apply reset
         rst = 1; #10;

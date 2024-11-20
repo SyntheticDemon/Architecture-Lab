@@ -16,6 +16,7 @@ module ID_Stage_Reg (
     input signed [11:0] Shift_operand_IN, // Shift operand input
     input [23:0] Signed_imm_24_IN,        // Signed immediate value input
     input [3:0] Dest_IN,     // Destination register input
+    input [3:0] SR_in,
     // Outputs
     output reg WB_EN,        // Write back enable
     output reg MEM_R_EN,     // Memory read enable
@@ -29,7 +30,8 @@ module ID_Stage_Reg (
     output reg [23:0] Signed_imm_24, // Signed immediate value
     output reg [3:0] Dest,    // Destination register
     output reg B_out,
-    output reg S_out
+    output reg S_out,
+    output reg [3:0] SR_out
 );
 
     // Sequential logic for the registers
@@ -48,6 +50,7 @@ module ID_Stage_Reg (
             Shift_operand <= 12'b0;
             Signed_imm_24 <= 24'b0;
             Dest <= 4'b0;
+            SR_out <= 4'b0;
         end else if (flush) begin
             WB_EN <= 1'b0;
             MEM_R_EN <= 1'b0;
@@ -62,6 +65,7 @@ module ID_Stage_Reg (
             Shift_operand <= 12'b0;
             Signed_imm_24 <= 24'b0;
             Dest <= 4'b0;
+            SR_out <= 4'b0;
         end else begin
             WB_EN <= WB_EN_IN;
             MEM_R_EN <= MEM_R_EN_IN;
@@ -76,6 +80,7 @@ module ID_Stage_Reg (
             Shift_operand <= Shift_operand_IN;
             Signed_imm_24 <= Signed_imm_24_IN;
             Dest <= Dest_IN;
+            SR_out <= SR_in;
         end
     end
 
