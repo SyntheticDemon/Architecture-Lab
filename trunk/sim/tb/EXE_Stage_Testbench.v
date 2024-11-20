@@ -42,19 +42,21 @@ module EXE_Stage_Testbench;
     wire [11:0] Shift_operand_reg;    // Shift operand output
     wire [3:0] Dest;              // Destination register output
     wire [3:0] Dest_reg;              // Destination register output
+    wire [3:0] Dest_exe_Reg;
     wire [3:0] src1, src2;        // Source register addresses
     wire Two_src;                 // Two source operand indicator
     wire B;
     wire S;
     wire B_reg;
     wire S_reg;
+    wire EXE_branch_address_output;
     // Instantiate the IF_Stage module
     IF_Stage if_stage_inst (
         .clk(clk),
         .rst(rst),
         .freeze(freeze),
         .Branch_taken(Branch_taken),
-        .BranchAddr(),
+        .BranchAddr(EXE_branch_address_output),
         .PC(PC),
         .Instruction(Instruction)
     );
@@ -139,8 +141,7 @@ module EXE_Stage_Testbench;
     wire [31:0] EXE_stage_val_Rm_out;
     wire [3:0] EXE_stage_SR_out;
     wire [31:0] ALU_res;
-    wire EXE_stage_mem_read_out, EXE_stage_mem_write_out,
-    EXE_stage_WB_en_out;
+    wire EXE_stage_mem_read_out, EXE_stage_mem_write_out,EXE_stage_WB_en_out,EXE_stage_B_out;
 
     wire [1:0] EXE_sel_src1, EXE_sel_src2;
     wire [31:0] Mem_Stage_ALU_res_out;
@@ -167,15 +168,15 @@ module EXE_Stage_Testbench;
         .val_Rm_in(Val_Rm_reg),
         // .sel_src1(EXE_sel_src1),
         // .sel_src2(EXE_sel_src2),
-        .dst_out(Dest),
+        .dst_out(Dest_exe_reg),
         .SR_out(SR_final),
         .ALU_res(ALU_res),
         .val_Rm_out(EXE_stage_val_Rm_out),
-        .branch_address(),
+        .branch_address(EXE_branch_address_output),
         .mem_read_out(EXE_stage_mem_read_out),
         .mem_write_out(EXE_stage_mem_write_out),
         .WB_en_out(EXE_stage_WB_en_out),
-        .B_out(B),
+        .B_out(EXE_stage_B_out),
         .pc(EXE_stage_pc_out),
         .instruction(EXE_stage_instruction_out)
     );
