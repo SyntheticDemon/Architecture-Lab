@@ -236,7 +236,7 @@ module EXE_Stage_Testbench;
 
             // Display the current PC and lagged values
             $display("Current PC_Reg = %h, Lagged PC (1 cycle) = %h, Lagged PC (2 cycles) = %h, Instruction = %h , Instruction_reg = %h, ALU Res out = %h",
-                     PC, PC_Reg_IF, PC_Reg_ID,Instruction,Instruction_Reg,EXE_reg_ALU_res_out); // Print current and lagged PC
+                     PC, PC_Reg_IF, PC_Reg_ID,Instruction,Instruction_Reg,EXE_reg_ALU_res_out ); // Print current and lagged PC
         end
 
         // End the simulation

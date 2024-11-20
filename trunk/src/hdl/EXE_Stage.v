@@ -14,8 +14,8 @@ module EXE_Stage
   input  mem_read_in, mem_write_in, imm, WB_en_in, B_in,
   input  [31:0] val_Rn_in, val_Rm_in,
 
-  input  [1:0] sel_src1,
-  input  [1:0] sel_src2,
+  // input  [1:0] sel_src1,
+  // input  [1:0] sel_src2,
 
   output [3:0] dst_out,
   output [3:0] SR_out,
@@ -39,20 +39,20 @@ module EXE_Stage
   wire [31:0] alu_src1;
   wire [31:0] alu_src2;
 
-  MUX_4_to_1 #(.DATA_WIDTH(32)) MUX_ALU_sel1 (
-		.in1(val_Rn_in), .in2(MEM_stage_val), .in3(WB_stage_val), .in4(val_Rn_in),
-		.sel(sel_src1),
-		.out(alu_src1)
-	);
+  // MUX_4_to_1 #(.DATA_WIDTH(32)) MUX_ALU_sel1 (
+	// 	.in1(val_Rn_in), .in2(MEM_stage_val), .in3(WB_stage_val), .in4(val_Rn_in),
+	// 	.sel(sel_src1),
+	// 	.out(alu_src1)
+	// );
 
-  MUX_4_to_1 #(.DATA_WIDTH(32)) MUX_ALU_sel2 (
-		.in1(val_Rm_in), .in2(MEM_stage_val), .in3(WB_stage_val), .in4(val_Rm_in),
-		.sel(sel_src2),
-		.out(alu_src2)
-	);
+  // MUX_4_to_1 #(.DATA_WIDTH(32)) MUX_ALU_sel2 (
+	// 	.in1(val_Rm_in), .in2(MEM_stage_val), .in3(WB_stage_val), .in4(val_Rm_in),
+	// 	.sel(sel_src2),
+	// 	.out(alu_src2)
+	// );
 
   Val2_Generator Val2_Generator_Inst(
-    .val_Rm(alu_src2),
+    .val_Rm(val_Rn_in),
     .shifter_operand(shifter_operand),
     .imm(imm),
     .is_for_memory(is_for_memory),
@@ -60,7 +60,7 @@ module EXE_Stage
 	);
 
   ALU ALU_Inst(
-    .val1(alu_src1),
+    .val1(val_Rm_in),
     .val2(val2),
     .EX_command(EX_command),
     .carry(SR_in[2]),

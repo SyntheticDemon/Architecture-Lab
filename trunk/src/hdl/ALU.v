@@ -86,7 +86,7 @@ module ALU
                 temp_res = val1 - val2;
             end
             default:
-                temp_res = 3'bx;
+                temp_res = 32'b0;
 
         endcase
     end
