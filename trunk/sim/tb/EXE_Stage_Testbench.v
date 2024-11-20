@@ -187,7 +187,7 @@ module EXE_Stage_Testbench;
     wire EXE_reg_mem_read_out, EXE_reg_mem_write_out, EXE_reg_WB_en_out;
 
     // EXE Stage Register instantiation
-    EXE_Stange_Reg exe_stage_reg_inst (
+    EXE_Stage_Reg exe_stage_reg_inst (
         .clk(clk),
         .rst(rst),
         .pc_in(EXE_stage_pc_out),
@@ -207,12 +207,6 @@ module EXE_Stage_Testbench;
         .pc(EXE_reg_pc_out),
         .instruction(EXE_reg_instruction_out)
     );
-
-    
-
-
-
-
 
     // Clock generation
     initial begin
@@ -241,8 +235,8 @@ module EXE_Stage_Testbench;
             #10; // Wait for a few clock cycles
 
             // Display the current PC and lagged values
-            $display("Current PC_Reg = %h, Lagged PC (1 cycle) = %h, Lagged PC (2 cycles) = %h, Instruction = %h , Instruction_reg = %h",
-                     PC, PC_Reg_IF, PC_Reg_ID,Instruction,Instruction_Reg); // Print current and lagged PC
+            $display("Current PC_Reg = %h, Lagged PC (1 cycle) = %h, Lagged PC (2 cycles) = %h, Instruction = %h , Instruction_reg = %h, ALU Res out = %h",
+                     PC, PC_Reg_IF, PC_Reg_ID,Instruction,Instruction_Reg,EXE_reg_ALU_res_out); // Print current and lagged PC
         end
 
         // End the simulation
