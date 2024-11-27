@@ -9,27 +9,24 @@ module Memory
     output [31:0] res_data
 );
 
-    wire [31:0] generatedAddr = {alu_res[31:2], 2'b00} - 32'd1024;
+    wire [31:0] dataAdr;
+    assign dataAdr = alu_res - 32'd1024;
+    assign generatedAddr = {2'b00, alu_res[31:2]}; // Align address to the word boundary
 
-    reg [7:0] mem_data [0:2047];
+    reg [31:0] mem_data [0:64];
 
 	integer i;
 
 	always @(posedge clk, posedge rst)
 	begin
-		if (rst)
-			begin
-				for (i=0; i < 2048; i = i+1)
-					mem_data [i] <= i;
-			end
-		else if (mem_w_en) begin	
-                mem_data[generatedAddr] <= Val_Rm[7:0];
-                mem_data[{generatedAddr[31:1], 1'b1}] <= Val_Rm[15:8];
-                mem_data[{generatedAddr[31:2], 2'b10}] <= Val_Rm[23:16];
-                mem_data[{generatedAddr[31:2], 2'b11}] <= Val_Rm[31:24];
+        if (rst)
+            for (i = 0; i < 64; i = i + 1) begin
+                mem_data[i] <= 32'd0;
+            end
+        else if (mem_w_en) begin	
+                mem_data[generatedAddr] <= Val_Rm;
 		end
 	end
-    assign res_data = mem_r_en ? {mem_data[{generatedAddr[31:2], 2'b11}], mem_data[{generatedAddr[31:2], 2'b10}], 
-                                    mem_data[{generatedAddr[31:1], 1'b1}], mem_data[{generatedAddr}]}: 32'b0;
+    assign res_data = mem_r_en ? mem_data[generatedAddr] : 32'b0;
 
 endmodule
