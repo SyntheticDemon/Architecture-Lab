@@ -82,6 +82,7 @@ module ARM_Testbench;
         .Dest_wb(Dest_wb),             // Destination register address
         .hazard(hazard),               // Hazard detection signal
         .SR(SR_out),                       // Status Register
+
         .WB_EN(WB_EN),                 // Write-back enable output
         .MEM_R_EN(MEM_R_EN),           // Memory read enable output
         .MEM_W_EN(MEM_W_EN),           // Memory write enable output
@@ -105,7 +106,7 @@ module ARM_Testbench;
         .clk(clk),
         .rst(rst),
         .flush(flush),
-        .WB_EN_IN(writeBackEn),      // Pass in writeBackEn
+        .WB_EN_IN(WB_EN),      // Pass in writeBackEn
         .MEM_R_EN_IN(MEM_R_EN),      // Pass in MEM_R_EN if needed
         .MEM_W_EN_IN(MEM_W_EN),      // Pass in MEM_W_EN if needed
         .B_in(B),         // Pass in branch signal if needed
@@ -127,6 +128,7 @@ module ARM_Testbench;
         .Val_Rm(Val_Rm_reg),             // Output value of Rm
         .imm(imm_ID),
         .SR_in(SR_out),
+        
         .B_out(B_reg),
         .S_out(S_reg),
         .SR_out(ID_SR_out),
@@ -153,7 +155,7 @@ module ARM_Testbench;
         .pc_in(PC_Reg_ID),
         .instruction_in(Instruction_Reg),
         .MEM_stage_val(Mem_Stage_ALU_res_out),
-        .WB_stage_val(Result_WB),
+        //.WB_stage_val(Result_WB),
         .signed_immediate(Signed_imm_24_reg),
         .EX_command(EXE_CMD_reg),
         .SR_in(ID_SR_out),

@@ -4,7 +4,7 @@ clc
 exec vlib work
 vmap work work
 
-set TB                  "ARM_Testbench"
+set TB                 "ARM_Testbench"
 set hdl_path           "../src/hdl"
 set inc_path           "../src/inc"
 

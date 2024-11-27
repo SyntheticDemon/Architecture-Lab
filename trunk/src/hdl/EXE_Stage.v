@@ -5,7 +5,7 @@ module EXE_Stage
   input  [31:0] pc_in,
   input  [31:0] instruction_in,
   input  [31:0] MEM_stage_val,
-  input  [31:0] WB_stage_val,
+  //input  [31:0] WB_stage_val,
   input  [23:0] signed_immediate,
   input  [3:0] EX_command,
   input  [3:0] SR_in,
@@ -76,6 +76,6 @@ module EXE_Stage
 	assign mem_write_out = mem_write_in;
   assign WB_en_out = WB_en_in;
   assign B_out = B_in;
-  assign val_Rm_out = alu_src2;
+  assign val_Rm_out = val_Rm_in;
 
 endmodule
