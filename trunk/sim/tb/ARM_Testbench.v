@@ -5,10 +5,6 @@ module ARM_Testbench;
     // Inputs for IF_Stage and IF_Stage_Reg
     reg clk;
     reg rst;
-    reg freeze;
-    reg flush;
-    reg Branch_taken;
-    // TODO give branch taken
     // Outputs from IF_Stage and IF_Stage_Reg
     wire [31:0] PC;
     wire [31:0] PC_Reg_ID;
@@ -20,7 +16,7 @@ module ARM_Testbench;
     wire [31:0] Result_WB;         // Result from the Write-Back stage
     wire writeBackEn;              // Write-back enable signal
     wire [3:0] Dest_wb;            // Destination register address in Write-Back
-    reg hazard;                   // Hazard detection signal
+    wire hazard;                   // Hazard detection signal
     wire WB_EN;                   // Write-back enable output
     wire WB_EN_reg;                   // Write-back enable output
     wire MEM_R_EN;                // Memory read enable output
@@ -42,20 +38,20 @@ module ARM_Testbench;
     wire [11:0] Shift_operand_reg;    // Shift operand output
     wire [3:0] Dest;              // Destination register output
     wire [3:0] Dest_reg;              // Destination register output
-    wire [3:0] Dest_exe_Reg;
+    //wire [3:0] Dest_exe_Reg;
     wire [3:0] src1, src2;        // Source register addresses
     wire Two_src;                 // Two source operand indicator
     wire B;
     wire S;
     wire B_reg;
     wire S_reg;
-    wire EXE_branch_address_output;
+    wire [31:0] EXE_branch_address_output;
     // Instantiate the IF_Stage module
     IF_Stage if_stage_inst (
         .clk(clk),
         .rst(rst),
-        .freeze(freeze),
-        .Branch_taken(Branch_taken),
+        .freeze(hazard),
+        .Branch_taken(B_reg),
         .BranchAddr(EXE_branch_address_output),
         .PC(PC),
         .Instruction(Instruction)
@@ -65,8 +61,8 @@ module ARM_Testbench;
     IF_Stage_Reg if_stage_reg_inst (
         .clk(clk),
         .rst(rst),
-        .freeze(freeze),
-        .flush(flush),
+        .freeze(hazard),
+        .flush(B_reg),
         .PC_in(PC),
         .Instruction_in(Instruction),
         .PC(PC_Reg_IF),
@@ -105,7 +101,7 @@ module ARM_Testbench;
     ID_Stage_Reg id_stage_reg_inst (
         .clk(clk),
         .rst(rst),
-        .flush(flush),
+        .flush(B_reg),
         .WB_EN_IN(WB_EN),      // Pass in writeBackEn
         .MEM_R_EN_IN(MEM_R_EN),      // Pass in MEM_R_EN if needed
         .MEM_W_EN_IN(MEM_W_EN),      // Pass in MEM_W_EN if needed
@@ -139,7 +135,7 @@ module ARM_Testbench;
 
     wire [31:0] EXE_stage_pc_out;
     wire [31:0] EXE_stage_instruction_out;
-    wire [3:0] EXE_stage_reg_file_dst_out;
+    wire [3:0] Dest_exe_reg;
     wire [31:0] EXE_stage_val_Rm_out;
     wire [3:0] EXE_stage_SR_out;
     wire [31:0] ALU_res;
@@ -202,7 +198,7 @@ module ARM_Testbench;
         .rst(rst),
         .pc_in(EXE_stage_pc_out),
         .instruction_in(EXE_stage_instruction_out),
-        .dst_in(Dest),
+        .dst_in(Dest_exe_reg),
         .mem_read_in(EXE_stage_mem_read_out),
         .mem_write_in(EXE_stage_mem_write_out),
         .WB_en_in(EXE_stage_WB_en_out),
@@ -275,24 +271,23 @@ module ARM_Testbench;
     .WB_Value(Result_WB)
   );
 
-  // wire EXE_WB_en = ID_reg_WB_en_out;
-  // wire MEM_WB_en = EXE_reg_WB_en_out;
-  // wire[3:0] EXE_dest = ID_reg_reg_file_dst_out;
-  // wire[3:0] MEM_dest = EXE_reg_dst_out;
+  wire EXE_WB_en = WB_EN_reg;
+  wire MEM_WB_en = EXE_reg_WB_en_out;
+  wire[3:0] EXE_dest = Dest_reg;
+  wire[3:0] MEM_dest = EXE_reg_dst_out;
 
-  // Hazard_Detection_Unit Hazard_Detection_Unit_Inst(
-  //   //.enableForwarding(enableForwarding),
-  //   .src1(ID_stage_reg_file_src1),
-  //   .src2(ID_stage_reg_file_src2),
-  //   .EXE_dest(EXE_dest),
-  //   .MEM_dest(MEM_dest),
-  //   .EXE_WB_en(EXE_WB_en),
-  //   .MEM_WB_en(MEM_WB_en),
-  //   .EXE_memread_en(EXE_stage_mem_read_out),
-  //   .has_src1(has_src1),
-  //   .has_src2(has_src2),
-  //   .hazard_detected(hazard_detected)
-  // );
+  HazardUnit HazardUnit_inst(
+    .rn(src1),
+    .rdm(src2),
+    .twoSrc(Two_src),
+    .destEx(EXE_dest),
+    .destMem(MEM_dest),
+    .wbEnEx(EXE_WB_en),
+    .wbEnMem(MEM_WB_en),
+    //.memREn(),
+    
+    .hazard(hazard)
+);
 
     // Clock generation
     initial begin
@@ -304,13 +299,12 @@ module ARM_Testbench;
     initial begin
         // Initialize inputs
         rst = 0;
-        freeze = 0;
-        Branch_taken = 0;
-        flush = 0;
+        //Branch_taken = 0;
+        //flush = 0;
         //Result_WB = 32'h0;
         //writeBackEn = 0;
         //Dest_wb = 4'b0000;
-        hazard = 0;
+        //hazard = 0;
         
         // Apply reset
         rst = 1; #10;
