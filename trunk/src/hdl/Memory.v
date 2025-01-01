@@ -11,16 +11,17 @@ module Memory
 
     wire [31:0] dataAdr;
     assign dataAdr = alu_res - 32'd1024;
-    assign generatedAddr = {2'b00, alu_res[31:2]}; // Align address to the word boundary
+    wire [31:0] generatedAddr;
+    assign generatedAddr = {2'b00, dataAdr[31:2]}; // Align address to the word boundary
 
-    reg [31:0] mem_data [0:2047];
+    reg [31:0] mem_data [0:1023];
 
 	integer i;
 
 	always @(posedge clk, posedge rst)
 	begin
         if (rst)
-            for (i = 0; i < 2048; i = i + 1) begin
+            for (i = 0; i < 1023; i = i + 1) begin
                 mem_data[i] <= 32'd0;
             end
         else if (mem_w_en) begin	

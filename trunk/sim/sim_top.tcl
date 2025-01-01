@@ -29,6 +29,7 @@ add wave -hex -group    {TB}                sim:/$TB/*
 #add wave -hex -group    {top}               sim:/$TB/uut/*  
 add wave -hex -group -r {all}               sim:/$TB/*
 
+# do wave.do
 #=========================== Configure wave signals =============================
 configure wave -signalnamewidth 2
 
