@@ -3,8 +3,8 @@ module EXE_Stage
   input                    clk,
   input                    rst,
   input  [31:0] pc_in,
-  input  [31:0] instruction_in,
-  input  [31:0] MEM_stage_val,
+  //input  [31:0] instruction_in,
+  //input  [31:0] MEM_stage_val,
   //input  [31:0] WB_stage_val,
   input  [23:0] signed_immediate,
   input  [3:0] EX_command,
@@ -23,8 +23,8 @@ module EXE_Stage
   output [31:0] val_Rm_out,
   output [31:0] branch_address,
   output mem_read_out, mem_write_out, WB_en_out, B_out,
-  output [31:0] pc,
-  output [31:0] instruction
+  output [31:0] pc//,
+  //output [31:0] instruction
 );
 
   wire [31:0] val2;
@@ -70,7 +70,7 @@ module EXE_Stage
 
   assign is_for_memory = mem_read_in | mem_write_in;
   assign pc = pc_in;
-  assign instruction = instruction_in;
+  //assign instruction = instruction_in;
   assign dst_out = dst_in;
 	assign mem_read_out = mem_read_in;
 	assign mem_write_out = mem_write_in;
