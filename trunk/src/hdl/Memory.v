@@ -6,10 +6,12 @@ module Memory
     input  [31:0] Val_Rm,
     input                    mem_w_en,
     input                    mem_r_en,
-    output [31:0] res_data
+    output reg [31:0] res_data
 );
 
     wire [31:0] dataAdr;
+    wire [31:0] generatedAddr;
+    
     assign dataAdr = alu_res - 32'd1024;
     wire [31:0] generatedAddr;
     assign generatedAddr = {2'b00, dataAdr[31:2]}; // Align address to the word boundary
@@ -28,6 +30,11 @@ module Memory
                 mem_data[generatedAddr] <= Val_Rm;
 		end
 	end
-    assign res_data = mem_r_en ? mem_data[generatedAddr] : 32'b0;
+
+
+    always @(mem_r_en or generatedAddr) begin
+        if (mem_r_en)
+            res_data = mem_data[generatedAddr];
+    end
 
 endmodule
