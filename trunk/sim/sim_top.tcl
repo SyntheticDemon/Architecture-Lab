@@ -4,7 +4,7 @@ clc
 exec vlib work
 vmap work work
 
-set TB                 "ARM_Testbench"
+set TB                 "ARM_new_Testbench"
 set hdl_path           "../src/hdl"
 set inc_path           "../src/inc"
 
@@ -28,6 +28,8 @@ vsim    -voptargs=+acc -debugDB $TB
 add wave -hex -group    {TB}                sim:/$TB/*
 #add wave -hex -group    {top}               sim:/$TB/uut/*  
 add wave -hex -group -r {all}               sim:/$TB/*
+#add wave -hex -group    {regfile}               sim:/$TB/ID_Stage_Inst/rf/*  
+
 
 #=========================== Configure wave signals =============================
 configure wave -signalnamewidth 2
