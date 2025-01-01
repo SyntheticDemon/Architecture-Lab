@@ -6,26 +6,21 @@ module HazardUnit(
     //input forwardEn,
     output reg hazard
 );
-    always @(*) begin
+   always @(*) begin
         hazard = 1'b0;
-        // if (forwardEn) begin
-        //     if (memREn) begin
-        //         if (rn == destEx || (twoSrc && rdm == destEx)) begin
-        //             hazard = 1'b1;
-        //         end
-        //     end
-        // end
-        // else begin
-            if (wbEnEx) begin
-                if (rn == destEx || (twoSrc && rdm == destEx)) begin
-                    hazard = 1'b1;
-                end
+        
+        // Check EX Stage
+        if (wbEnEx && destEx) begin
+            if ((rn == destEx) || (twoSrc && (rdm == destEx))) begin
+                hazard = 1'b1;
             end
-            if (wbEnMem) begin
-                if (rn == destMem || (twoSrc && rdm == destMem)) begin
-                    hazard = 1'b1;
-                end
+        end
+        
+        // Check MEM Stage
+        if (wbEnMem && destMem) begin
+            if ((rn == destMem) || (twoSrc && (rdm == destMem))) begin
+                hazard = 1'b1;
             end
-        // end
+        end
     end
 endmodule

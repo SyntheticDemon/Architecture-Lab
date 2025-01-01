@@ -5,9 +5,9 @@ module ConditionCheck(
     output reg result
 );
     wire n, z, c, v;
-    assign {n, z, c, v} = status;
+    assign {z, c, n, v} = status;
 
-    always @(condition, n, z, c, v) begin
+always @(condition, n, z, c, v) begin
         result = 1'b0;
         case (condition)
             4'b0000: result = z;             // EQ

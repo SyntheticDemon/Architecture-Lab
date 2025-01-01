@@ -20,7 +20,7 @@ always @(posedge clk, posedge rst) begin
     if(rst) begin
       pc <= 0;
       //instruction <= 0;
-      dst_out <= 0;
+      dst_out <=  0;
       ALU_res_out <= 0;
       val_Rm_out <= 0;
       mem_read_out <= 0;

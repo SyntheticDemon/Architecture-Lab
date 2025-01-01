@@ -52,7 +52,7 @@ module EXE_Stage
 	// );
 
   Val2_Generator Val2_Generator_Inst(
-    .val_Rm(val_Rn_in),
+    .val_Rm(val_Rm_in),
     .shifter_operand(shifter_operand),
     .imm(imm),
     .is_for_memory(is_for_memory),
@@ -60,7 +60,7 @@ module EXE_Stage
 	);
 
   ALU ALU_Inst(
-    .val1(val_Rm_in),
+    .val1(val_Rn_in),
     .val2(val2),
     .EX_command(EX_command),
     .carry(SR_in[2]),

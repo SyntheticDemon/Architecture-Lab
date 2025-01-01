@@ -58,7 +58,7 @@ module ALU
 
             end
             `EX_SBC: begin
-                temp_res = val1 - val2 - 2'b01;
+                temp_res = val1 - val2 - {31'b0,~carry}; 
                 C1 = temp_res[32];
                 V1 = (val1[31] ^ val2[31]) & (temp_res[31] ^ val1[31]);
             end

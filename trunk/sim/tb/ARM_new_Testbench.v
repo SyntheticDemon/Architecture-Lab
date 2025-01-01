@@ -1,4 +1,4 @@
-`timescale 1ns/1ns
+`timescale 1ns / 1ps
 
 `define WORD_WIDTH 32
 `define REG_FILE_DEPTH 4
@@ -66,7 +66,7 @@ module ARM_new_Testbench;
   wire [`WORD_WIDTH-1:0] WB_Value;
   wire WB_Stage_WB_en_out;
   wire has_src2;
-
+  wire has_src1;
   ID_Stage ID_Stage_Inst(
     .clk(clk),
     .rst(rst),
@@ -294,7 +294,7 @@ module ARM_new_Testbench;
     .wbEnMem(MEM_WB_en),
     //.EXE_memread_en(EXE_stage_mem_read_out),
     //.has_src1(has_src1),
-    .twoSrc(has_src2),
+    .twoSrc(has_src1),
     .hazard(hazard_detected)
   );
 
@@ -311,18 +311,36 @@ module ARM_new_Testbench;
   // );
 
 
-  initial begin
-    clk = 0;
-    forever clk = #clock_period ~clk;
-  end
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk; // 10ns clock period
+    end
 
-  initial begin
-    //enableForwarding = 0;
-    rst = 1;
-    # (clock_period / 2);
-    rst = 0;
-    # (1000*clock_period);
-    $stop;
-  end
+    // Test sequence
+    initial begin
+        // Initialize inputs
+        rst = 0;
+        //Branch_taken = 0;
+        //flush = 0;
+        //Result_WB = 32'h0;
+        //writeBackEn = 0;
+        //Dest_wb = 4'b0000;
+        //hazard = 0;
+        
+        // Apply reset
+        rst = 1; #100;
+        rst = 0; #100;
+
+        repeat (500000) begin
+            #50; // Wait for a few clock cycles
+
+            // Display the current PC and lagged values
+            // $display("Current PC_Reg = %h, Lagged PC (1 cycle) = %h, Lagged PC (2 cycles) = %h, Instruction = %h , Instruction_reg = %h, ALU Res out = %h, Mem out = %h, Write back value = %h",
+            //          PC, PC_Reg_IF, PC_Reg_ID,Instruction,Instruction_Reg,EXE_reg_ALU_res_out, Mem_Reg_mem_out, Result_WB); // Print current and lagged PC
+        end
+
+        // End the simulation
+        $stop;
+    end
 
 endmodule
