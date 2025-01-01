@@ -31,7 +31,7 @@ module EXE_Stage
   wire is_for_memory;
 
   Adder Adder_Inst(
-    .a(pc_in),
+    .a(pc_in + 1'b1),
     .b({{(8){signed_immediate[23]}}, signed_immediate}),
     .out(branch_address)
   );

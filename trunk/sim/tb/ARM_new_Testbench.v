@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 1ns
 
 `define WORD_WIDTH 32
 `define REG_FILE_DEPTH 4
@@ -331,8 +331,8 @@ module ARM_new_Testbench;
         rst = 1; #100;
         rst = 0; #100;
 
-        repeat (500000) begin
-            #50; // Wait for a few clock cycles
+        repeat (300) begin
+            # clock_period; // Wait for a few clock cycles
 
             // Display the current PC and lagged values
             // $display("Current PC_Reg = %h, Lagged PC (1 cycle) = %h, Lagged PC (2 cycles) = %h, Instruction = %h , Instruction_reg = %h, ALU Res out = %h, Mem out = %h, Write back value = %h",

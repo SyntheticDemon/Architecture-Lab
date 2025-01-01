@@ -8,8 +8,8 @@ set TB                 "ARM_new_Testbench"
 set hdl_path           "../src/hdl"
 set inc_path           "../src/inc"
 
-set run_time           "1 us"
-#set run_time          "-all"
+# set run_time           "1 us"
+set run_time          "-all"
 
 #============================ Add verilog files  ===============================
 # Add all required HDL files

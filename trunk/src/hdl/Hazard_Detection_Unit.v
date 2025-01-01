@@ -10,14 +10,14 @@ module HazardUnit(
         hazard = 1'b0;
         
         // Check EX Stage
-        if (wbEnEx && destEx) begin
+        if (wbEnEx) begin
             if ((rn == destEx) || (twoSrc && (rdm == destEx))) begin
                 hazard = 1'b1;
             end
         end
         
         // Check MEM Stage
-        if (wbEnMem && destMem) begin
+        if (wbEnMem) begin
             if ((rn == destMem) || (twoSrc && (rdm == destMem))) begin
                 hazard = 1'b1;
             end
