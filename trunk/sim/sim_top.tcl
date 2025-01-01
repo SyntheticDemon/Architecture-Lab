@@ -15,7 +15,6 @@ set run_time           "1 us"
 # Add all required HDL files
 vlog    +acc -incr -source  +define+SIM     $hdl_path/*.v
 
-
 # Include any header files from inc directory if needed
 vlog    +acc -incr -source  +incdir+$inc_path +define+SIM   ./tb/$TB.v
 
