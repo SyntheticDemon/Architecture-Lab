@@ -3,8 +3,6 @@
 `define WORD_WIDTH 32
 `define REG_FILE_DEPTH 4
 `define REG_FILE_SIZE 16
-`define MEMORY_DATA_LEN 8
-`define MEMORY_SIZE 2048
 `define SIGNED_IMM_WIDTH 24
 `define SHIFTER_OPERAND_WIDTH 12
 
@@ -13,11 +11,11 @@
 module ARM_new_Testbench;
     parameter clock_period = `CLOCK_PERIOD;
 
-    reg clk;
-    reg rst;
-  //reg enableForwarding;
+  reg clk;
+  reg rst;
+  reg enableForwarding;
 
-    wire [`WORD_WIDTH-1:0] IF_stage_pc_out;
+  wire [`WORD_WIDTH-1:0] IF_stage_pc_out;
   wire [`WORD_WIDTH-1:0] IF_stage_instruction_out;
   wire [`WORD_WIDTH-1:0] branch_address;
   wire EXE_stage_B_out;
@@ -65,8 +63,7 @@ module ARM_new_Testbench;
   wire [`REG_FILE_DEPTH-1:0] WB_Stage_dst_out;
   wire [`WORD_WIDTH-1:0] WB_Value;
   wire WB_Stage_WB_en_out;
-  wire has_src2;
-  wire has_src1;
+  wire twoSrc;
   ID_Stage ID_Stage_Inst(
     .clk(clk),
     .rst(rst),
@@ -89,8 +86,7 @@ module ARM_new_Testbench;
         .imm(ID_stage_Imm_out),
         .B(ID_stage_B_out),
         .S(ID_stage_SR_update_out),
-        //.has_src2(has_src2),
-        .Two_src(has_src1),
+        .Two_src(twoSrc),
         .src1(ID_stage_reg_file_src1),
     .src2(ID_stage_reg_file_src2)
   );
@@ -107,7 +103,7 @@ module ARM_new_Testbench;
     ID_reg_Imm_out,
     ID_reg_B_out,
     ID_reg_SR_update_out;
-  //wire [`REG_FILE_DEPTH-1:0] ID_reg_reg_file_src1, ID_reg_reg_file_src2;
+  wire [`REG_FILE_DEPTH-1:0] ID_reg_reg_file_src1, ID_reg_reg_file_src2;
 
   ID_Stage_Reg ID_Reg_Inst(
     .clk(clk),
@@ -125,8 +121,8 @@ module ARM_new_Testbench;
         .imm_IN(ID_stage_Imm_out),
         .B_in(ID_stage_B_out),
         .S_in(ID_stage_SR_update_out),
-    //.reg_file_src1_in(ID_stage_reg_file_src1),
-    //.reg_file_src2_in(ID_stage_reg_file_src2),
+    .reg_file_src1_in(ID_stage_reg_file_src1),
+    .reg_file_src2_in(ID_stage_reg_file_src2),
     .PC(ID_reg_pc_out),
     //.instruction(ID_reg_instruction_out),
     .Dest(ID_reg_reg_file_dst_out),
@@ -140,9 +136,9 @@ module ARM_new_Testbench;
         .B_out(ID_reg_B_out),
     .S_out(ID_reg_SR_update_out),
     .SR_in(status),
-    .SR_out(ID_reg_SR_out)//,
-    //.reg_file_src1_out(ID_reg_reg_file_src1),
-    //.reg_file_src2_out(ID_reg_reg_file_src2)
+    .SR_out(ID_reg_SR_out),
+    .reg_file_src1_out(ID_reg_reg_file_src1),
+    .reg_file_src2_out(ID_reg_reg_file_src2)
   );
 
   wire [`WORD_WIDTH-1:0] EXE_stage_pc_out;
@@ -154,7 +150,7 @@ module ARM_new_Testbench;
   wire EXE_stage_mem_read_out, EXE_stage_mem_write_out,
     EXE_stage_WB_en_out;
 
-  //wire [1:0] EXE_sel_src1, EXE_sel_src2;
+  wire [1:0] EXE_sel_src1, EXE_sel_src2;
   wire [`WORD_WIDTH-1:0] Mem_Stage_ALU_res_out;
 
   EXE_Stage EXE_Stage_Inst(
@@ -162,8 +158,8 @@ module ARM_new_Testbench;
     .rst(rst),
     .pc_in(ID_reg_pc_out),
     //.instruction_in(ID_reg_instruction_out),
-    //.MEM_stage_val(Mem_Stage_ALU_res_out),
-    //.WB_stage_val(WB_Value),
+    .MEM_stage_val(Mem_Stage_ALU_res_out),
+    .WB_stage_val(WB_Value),
     .signed_immediate(ID_reg_signed_immediate_out),
     .EX_command(ID_reg_EX_command_out),
     .SR_in(ID_reg_SR_out),
@@ -175,8 +171,8 @@ module ARM_new_Testbench;
     .B_in(ID_reg_B_out),
     .val_Rn_in(ID_reg_val_Rn_out), .val_Rm_in(ID_reg_val_Rm_out),
 
-    // .sel_src1(EXE_sel_src1),
-    // .sel_src2(EXE_sel_src2),
+    .sel_src1(EXE_sel_src1),
+    .sel_src2(EXE_sel_src2),
 
     .dst_out(EXE_stage_reg_file_dst_out),
     .SR_out(EXE_stage_SR_out),
@@ -285,30 +281,29 @@ module ARM_new_Testbench;
   wire[`REG_FILE_DEPTH-1:0] MEM_dest = EXE_reg_dst_out;
 
   HazardUnit Hazard_Detection_Unit_Inst(
-    //.enableForwarding(enableForwarding),
+    .forwardEn(enableForwarding),
     .rn(ID_stage_reg_file_src1),
     .rdm(ID_stage_reg_file_src2),
     .destEx(EXE_dest),
     .destMem(MEM_dest),
     .wbEnEx(EXE_WB_en),
     .wbEnMem(MEM_WB_en),
-    //.EXE_memread_en(EXE_stage_mem_read_out),
-    //.has_src1(has_src1),
+    .memREn(EXE_stage_mem_read_out),
     .twoSrc(has_src1),
     .hazard(hazard_detected)
   );
 
-  // Forwarding_Unit Forwarding_Unit_Inst(
-  //   .enable(enableForwarding),
-  //   .src1(ID_reg_reg_file_src1),
-  //   .src2(ID_reg_reg_file_src2),
-  //   .MEM_dest(MEM_dest),
-  //   .WB_dest(WB_Stage_dst_out),
-  //   .MEM_WB_en(MEM_WB_en),
-  //   .WB_WB_en(WB_Stage_WB_en_out),
-  //   .sel_src1(EXE_sel_src1),
-  //   .sel_src2(EXE_sel_src2)
-  // );
+  Forwarding_Unit Forwarding_Unit_Inst(
+    .enable(enableForwarding),
+    .src1(ID_reg_reg_file_src1),
+    .src2(ID_reg_reg_file_src2),
+    .MEM_dest(MEM_dest),
+    .WB_dest(WB_Stage_dst_out),
+    .MEM_WB_en(MEM_WB_en),
+    .WB_WB_en(WB_Stage_WB_en_out),
+    .sel_src1(EXE_sel_src1),
+    .sel_src2(EXE_sel_src2)
+  );
 
 
     initial begin
@@ -330,8 +325,9 @@ module ARM_new_Testbench;
         // Apply reset
         rst = 1; #100;
         rst = 0; #100;
+        enableForwarding = 1;
 
-        repeat (300) begin
+        repeat (200) begin
             # clock_period; // Wait for a few clock cycles
 
             // Display the current PC and lagged values

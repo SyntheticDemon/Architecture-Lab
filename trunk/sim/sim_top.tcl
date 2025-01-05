@@ -1,4 +1,4 @@
-    alias clc ".main clear"
+alias clc ".main clear"
 
 clc
 exec vlib work
@@ -13,10 +13,10 @@ set run_time          "-all"
 
 #============================ Add verilog files  ===============================
 # Add all required HDL files
-vlog    +acc -incr -source  +define+SIM     $hdl_path/*.v
+vlog    +acc -incr  +define+SIM     $hdl_path/*.v
 
 # Include any header files from inc directory if needed
-vlog    +acc -incr -source  +incdir+$inc_path +define+SIM   ./tb/$TB.v
+vlog    +acc -incr  +incdir+$inc_path +define+SIM   ./tb/$TB.v
 
 onerror {break}
 
@@ -26,11 +26,11 @@ vsim    -voptargs=+acc -debugDB $TB
 #======================= adding signals to wave window ==========================
 # add wave -hex -group    {TB}                sim:/$TB/*
 #add wave -hex -group    {top}               sim:/$TB/uut/*  
-# add wave -hex -group -r {all}               sim:/$TB/*
+add wave -hex -group -r {all}               sim:/$TB/*
 #add wave -hex -group    {regfile}               sim:/$TB/ID_Stage_Inst/rf/*  
 # add wave -position insertpoint sim:/ARM_new_Testbench/Hazard_Detection_Unit_Inst/*
-do wave.do
-# add wave -position insertpoint  \
+add wave -dec -position end  /ARM_new_Testbench/ID_Stage_Inst/rf/register_array
+add wave -dec -position end  /ARM_new_Testbench/Mem_Stage_Inst/M1/mem_data# add wave -position insertpoint  \
 # sim:/ARM_new_Testbench/Mem_Stage_Inst/M1/clk \
 # sim:/ARM_new_Testbench/Mem_Stage_Inst/M1/rst \
 # sim:/ARM_new_Testbench/Mem_Stage_Inst/M1/alu_res \

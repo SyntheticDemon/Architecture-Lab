@@ -2,24 +2,32 @@ module HazardUnit(
     input [3:0] rn, rdm,
     input twoSrc,
     input [3:0] destEx, destMem,
-    input wbEnEx, wbEnMem, //memREn,
-    //input forwardEn,
+    input wbEnEx, wbEnMem, memREn,
+    input forwardEn,
     output reg hazard
 );
-   always @(*) begin
+    always @(rn, rdm, destEx, destMem, wbEnEx, wbEnMem, memREn, twoSrc, forwardEn) begin
         hazard = 1'b0;
-        
-        // Check EX Stage
-        if (wbEnEx) begin
-            if ((rn == destEx) || (twoSrc && (rdm == destEx))) begin
-                hazard = 1'b1;
+        if (forwardEn) begin
+            if (memREn) begin
+                if (rn == destEx || (twoSrc && rdm == destEx)) begin
+                    hazard = 1'b1;
+                end
             end
         end
-        
-        // Check MEM Stage
-        if (wbEnMem) begin
-            if ((rn == destMem) || (twoSrc && (rdm == destMem))) begin
-                hazard = 1'b1;
+        else begin
+            // Check EX Stage
+            if (wbEnEx) begin
+                if ((rn == destEx) || (twoSrc && (rdm == destEx))) begin
+                    hazard = 1'b1;
+                end
+            end
+            
+            // Check MEM Stage
+            if (wbEnMem) begin
+                if ((rn == destMem) || (twoSrc && (rdm == destMem))) begin
+                    hazard = 1'b1;
+                end
             end
         end
     end

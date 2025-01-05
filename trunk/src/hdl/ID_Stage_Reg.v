@@ -17,6 +17,8 @@ module ID_Stage_Reg (
     input [23:0] Signed_imm_24_IN,        // Signed immediate value input
     input [3:0] Dest_IN,     // Destination register input
     input [3:0] SR_in,
+    input [3:0]               reg_file_src1_in,
+    input [3:0]               reg_file_src2_in,
     // Outputs
     output reg WB_EN,        // Write back enable
     output reg MEM_R_EN,     // Memory read enable
@@ -31,7 +33,9 @@ module ID_Stage_Reg (
     output reg [3:0] Dest,    // Destination register
     output reg B_out,
     output reg S_out,
-    output reg [3:0] SR_out
+    output reg [3:0] SR_out,
+    output reg [3:0]              reg_file_src1_out,
+    output reg [3:0]              reg_file_src2_out
 );
 
     // Sequential logic for the registers
@@ -51,6 +55,8 @@ module ID_Stage_Reg (
             Signed_imm_24 <= 24'b0;
             Dest <= 4'b0;
             SR_out <= 4'b0;
+            reg_file_src1_out <= 0;
+            reg_file_src2_out <= 0;
         end else if (flush) begin
             WB_EN <= 1'b0;
             MEM_R_EN <= 1'b0;
@@ -66,6 +72,8 @@ module ID_Stage_Reg (
             Signed_imm_24 <= 24'b0;
             Dest <= 4'b0;
             SR_out <= 4'b0;
+            reg_file_src1_out <= 0;
+            reg_file_src2_out <= 0;
         end else begin
             WB_EN <= WB_EN_IN;
             MEM_R_EN <= MEM_R_EN_IN;
@@ -81,6 +89,8 @@ module ID_Stage_Reg (
             Signed_imm_24 <= Signed_imm_24_IN;
             Dest <= Dest_IN;
             SR_out <= SR_in;
+            reg_file_src1_out <= reg_file_src1_in;
+            reg_file_src2_out <= reg_file_src2_in;
         end
     end
 
