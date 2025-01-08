@@ -7,6 +7,7 @@ module EXE_Stage_Reg
   input  [3:0] dst_in,
   input  mem_read_in, mem_write_in, WB_en_in,
   input  [31:0] val_Rm_in,
+  input freeze,
   input [31:0] ALU_res_in,
   output reg [3:0] dst_out,
   output reg [31:0] ALU_res_out,
@@ -28,14 +29,17 @@ always @(posedge clk, posedge rst) begin
       WB_en_out <= 0;
     end
     else begin
-      pc <= pc_in;
-      //instruction <= instruction_in;
-      dst_out <= dst_in;
-      ALU_res_out <= ALU_res_in;
-      val_Rm_out <= val_Rm_in;
-      mem_read_out <= mem_read_in;
-      mem_write_out <= mem_write_in;
-      WB_en_out <= WB_en_in;
+      if (~freeze)
+      begin 
+        pc <= pc_in;
+        //instruction <= instruction_in;
+        dst_out <= dst_in;
+        ALU_res_out <= ALU_res_in;
+        val_Rm_out <= val_Rm_in;
+        mem_read_out <= mem_read_in;
+        mem_write_out <= mem_write_in;
+        WB_en_out <= WB_en_in;
+      end
     end
 end
 

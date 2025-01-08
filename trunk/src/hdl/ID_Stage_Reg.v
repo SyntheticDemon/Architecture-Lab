@@ -6,6 +6,7 @@ module ID_Stage_Reg (
     input WB_EN_IN,          // Write back enable input
     input MEM_R_EN_IN,       // Memory read enable input
     input MEM_W_EN_IN,       // Memory write enable input
+    input freeze,
     input B_in,              // Branch input
     input S_in,              // Branch input
     input [3:0] EXE_CMD_IN,  // Execution command input
@@ -75,22 +76,25 @@ module ID_Stage_Reg (
             reg_file_src1_out <= 0;
             reg_file_src2_out <= 0;
         end else begin
-            WB_EN <= WB_EN_IN;
-            MEM_R_EN <= MEM_R_EN_IN;
-            MEM_W_EN <= MEM_W_EN_IN;
-            B_out <= B_in;
-            S_out <= S_in;
-            EXE_CMD <= EXE_CMD_IN;
-            PC <= PC_IN;
-            Val_Rn <= Val_Rn_IN;
-            Val_Rm <= Val_Rm_IN;
-            imm <= imm_IN;
-            Shift_operand <= Shift_operand_IN;
-            Signed_imm_24 <= Signed_imm_24_IN;
-            Dest <= Dest_IN;
-            SR_out <= SR_in;
-            reg_file_src1_out <= reg_file_src1_in;
-            reg_file_src2_out <= reg_file_src2_in;
+            if (~freeze)
+            begin
+                WB_EN <= WB_EN_IN;
+                MEM_R_EN <= MEM_R_EN_IN;
+                MEM_W_EN <= MEM_W_EN_IN;
+                B_out <= B_in;
+                S_out <= S_in;
+                EXE_CMD <= EXE_CMD_IN;
+                PC <= PC_IN;
+                Val_Rn <= Val_Rn_IN;
+                Val_Rm <= Val_Rm_IN;
+                imm <= imm_IN;
+                Shift_operand <= Shift_operand_IN;
+                Signed_imm_24 <= Signed_imm_24_IN;
+                Dest <= Dest_IN;
+                SR_out <= SR_in;
+                reg_file_src1_out <= reg_file_src1_in;
+                reg_file_src2_out <= reg_file_src2_in;
+            end
         end
     end
 

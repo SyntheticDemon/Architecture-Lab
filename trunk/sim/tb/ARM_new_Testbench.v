@@ -9,11 +9,27 @@
 `define CLOCK_PERIOD 20
 
 module ARM_new_Testbench;
-    parameter clock_period = `CLOCK_PERIOD;
+  parameter clock_period = `CLOCK_PERIOD;
 
   reg clk;
   reg rst;
   reg enableForwarding;
+
+
+// remove
+    wire [15:0] SRAM_DQ;
+    wire [17:0] SRAM_ADDR;
+    wire SRAM_UB_N;
+    wire SRAM_LB_N;
+    wire SRAM_WE_N;
+    wire SRAM_CE_N;
+    wire SRAM_OE_N;
+    wire sram_freeze;
+
+
+// remove
+
+
 
   wire [`WORD_WIDTH-1:0] IF_stage_pc_out;
   wire [`WORD_WIDTH-1:0] IF_stage_instruction_out;
@@ -24,7 +40,7 @@ module ARM_new_Testbench;
   IF_Stage  IF_Stage_Inst (
    .clk(clk),
    .rst(rst),
-   .freeze(hazard_detected),
+   .freeze(hazard_detected | sram_freeze),
    .Branch_taken(EXE_stage_B_out),
    .BranchAddr(branch_address),
    .PC(IF_stage_pc_out),
@@ -37,7 +53,7 @@ module ARM_new_Testbench;
   IF_Stage_Reg  IF_Reg_Inst (
    .clk(clk),
    .rst(rst),
-   .freeze(hazard_detected),
+   .freeze(hazard_detected | sram_freeze),
    .flush(EXE_stage_B_out),
    .PC_in(IF_stage_pc_out),
    .Instruction_in(IF_stage_instruction_out),
@@ -125,6 +141,7 @@ module ARM_new_Testbench;
     .reg_file_src2_in(ID_stage_reg_file_src2),
     .PC(ID_reg_pc_out),
     //.instruction(ID_reg_instruction_out),
+    .freeze(sram_freeze),
     .Dest(ID_reg_reg_file_dst_out),
       .Val_Rn(ID_reg_val_Rn_out), .Val_Rm(ID_reg_val_Rm_out),
       .Signed_imm_24(ID_reg_signed_immediate_out),
@@ -173,7 +190,6 @@ module ARM_new_Testbench;
 
     .sel_src1(EXE_sel_src1),
     .sel_src2(EXE_sel_src2),
-
     .dst_out(EXE_stage_reg_file_dst_out),
     .SR_out(EXE_stage_SR_out),
     .ALU_res(ALU_res),
@@ -203,6 +219,7 @@ module ARM_new_Testbench;
     .WB_en_in(EXE_stage_WB_en_out),
     .val_Rm_in(EXE_stage_val_Rm_out),
     .ALU_res_in(ALU_res),
+    .freeze(sram_freeze),
     .dst_out(EXE_reg_dst_out),
     .ALU_res_out(EXE_reg_ALU_res_out),
     .val_Rm_out(EXE_reg_val_Rm_out),
@@ -225,12 +242,19 @@ module ARM_new_Testbench;
     .mem_read(EXE_reg_mem_read_out),
     .mem_write(EXE_reg_mem_write_out),
     .WB_en(EXE_reg_WB_en_out),
-
     .dst_out(Mem_Stage_dst_out),
     .ALU_res_out(Mem_Stage_ALU_res_out),
     .mem_out(Mem_Stage_mem_out),
     .mem_read_out(Mem_Stage_read_out),
-    .WB_en_out(Mem_Stage_WB_en_out)
+    .WB_en_out(Mem_Stage_WB_en_out),
+    .freeze(sram_freeze),
+    .SRAM_DQ(SRAM_DQ),
+    .SRAM_ADDR(SRAM_ADDR),
+    .SRAM_UB_N(SRAM_UB_N),
+    .SRAM_LB_N(SRAM_LB_N),
+    .SRAM_WE_N(SRAM_WE_N),
+    .SRAM_CE_N(SRAM_CE_N),
+    .SRAM_OE_N(SRAM_OE_N)
   );
 
   wire [`REG_FILE_DEPTH-1:0] Mem_Reg_dst_out;
@@ -246,7 +270,7 @@ module ARM_new_Testbench;
     .mem(Mem_Stage_mem_out),
     .mem_read(Mem_Stage_read_out),
     .WB_en(Mem_Stage_WB_en_out),
-
+    .freeze(sram_freeze),
     .dst_out(Mem_Reg_dst_out),
     .ALU_res_out(Mem_Reg_ALU_res_out),
     .mem_out(Mem_Reg_mem_out),
@@ -304,7 +328,14 @@ module ARM_new_Testbench;
     .sel_src1(EXE_sel_src1),
     .sel_src2(EXE_sel_src2)
   );
-
+  
+  
+  SRAM sram(
+      .clk(clk), .rst(rst),
+      .SRAM_WE_N(SRAM_WE_N),
+      .SRAM_ADDR(SRAM_ADDR),
+      .SRAM_DQ(SRAM_DQ)
+  );
 
     initial begin
         clk = 0;
@@ -327,7 +358,7 @@ module ARM_new_Testbench;
         rst = 0; #100;
         enableForwarding = 0;
 
-        repeat (200) begin
+        repeat (2000) begin
             # clock_period; // Wait for a few clock cycles
 
             // Display the current PC and lagged values

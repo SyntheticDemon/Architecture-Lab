@@ -6,7 +6,7 @@ module MEM_Reg
     input [31:0] ALU_res,
     input [31:0] mem,
     input mem_read, WB_en,
-
+    input freeze,
     output reg [3:0] dst_out,
     output reg [31:0] ALU_res_out,
     output reg [31:0] mem_out,
@@ -22,11 +22,14 @@ always @(posedge clk, posedge rst) begin
         WB_en_out <= 0;
     end
     else begin
-        dst_out <= dst;
-        ALU_res_out <= ALU_res;
-        mem_out <= mem;
-        mem_read_out <= mem_read;
-        WB_en_out <= WB_en;
+        if (~freeze)
+        begin 
+            dst_out <= dst;
+            ALU_res_out <= ALU_res;
+            mem_out <= mem;
+            mem_read_out <= mem_read;
+            WB_en_out <= WB_en;
+        end
     end
 end
 
