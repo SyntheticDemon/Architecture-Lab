@@ -37,18 +37,15 @@ module Mem_Stage
     assign ALU_res_out = ALU_res;
 
 
-    wire ready;
-    assign freeze = ~ready;
-
     // wire [31:0] read_data;
 
     SRAMCTRL sram_controller(
         .clk(clk), .rst(rst),
-        .wrEn(mem_write), .rdEn(mem_read),
+        .wr_en(mem_write), .rd_en(mem_read),
         .address(ALU_res),
         .writeData(val_Rm),
         .readData(mem_out),
-        .ready(ready),
+        .sram_freeze(freeze),
         .SRAM_DQ(SRAM_DQ),
         .SRAM_ADDR(SRAM_ADDR),
         .SRAM_UB_N(SRAM_UB_N),

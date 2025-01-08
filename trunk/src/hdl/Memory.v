@@ -17,11 +17,12 @@ endmodule
 
 module SRAMCTRL(
     input clk, rst,
-    input wrEn, rdEn,
+    input wr_en,
+    input rd_en,
     input [31:0] address,
     input [31:0] writeData,
     output reg [31:0] readData,
-    output reg ready,            // to freeze other stages
+    output sram_freeze,            // to freeze other stages
 
     inout [15:0] SRAM_DQ,        // SRAM Data bus 16 bits
     output reg [17:0] SRAM_ADDR, // SRAM Address bus 18 bits
@@ -33,79 +34,119 @@ module SRAMCTRL(
 );
     assign {SRAM_UB_N, SRAM_LB_N, SRAM_CE_N, SRAM_OE_N} = 4'b0000;
 
-    wire [31:0] memAddr;
-    assign memAddr = address - 32'd1024;
+reg [3:0] ps, ns;
+parameter IDLE = 4'd0, WriteDataLow = 4'd1, WriteDataHigh = 4'd2, W3 = 4'd3, W4 = 4'd4, W5 =4'd5,
+   ReadDataLow = 4'd6, ReadDataHigh = 4'd7, R3 = 4'd8, R4 = 4'd9, R5 =4'd10;
 
-    wire [17:0] sramLowAddr, sramHighAddr, sramUpLowAddess;
-    assign sramLowAddr = {memAddr[18:3], 2'd0};
-    assign sramHighAddr = sramLowAddr + 18'd1;
-    assign sramUpLowAddess = sramLowAddr + 18'd2;
+reg ready;
+wire [31:0] addressSub1024;
+assign addressSub1024 = address - 1024;
 
-    wire [17:0] sramLowAddrWrite, sramHighAddrWrite;
-    assign sramLowAddrWrite = {memAddr[18:2], 1'b0};
-    assign sramHighAddrWrite = sramLowAddrWrite + 18'd1;
 
-    reg [15:0] dq;
-    assign SRAM_DQ = wrEn ? dq : 16'bz;
+assign sram_freeze = (ps == IDLE & (rd_en || wr_en)) ? 1'b1 : ~ready;
 
-    localparam Idle = 3'd0, DataLow = 3'd1, DataHigh = 3'd2,FirstIdle = 3'd3, SecondIdle = 3'd4, Done = 3'd5;
-    reg [2:0] ps, ns;
+assign SRAM_DQ = ps == WriteDataLow ? writeData[15:0] :
+                 ps == WriteDataHigh ? writeData[31:16] : 16'bz;
 
-    always @(ps or wrEn or rdEn) begin
-        case (ps)
-            Idle: ns = (wrEn == 1'b1 || rdEn == 1'b1) ? DataLow : Idle;
-            DataLow: ns = DataHigh;
-            DataHigh: ns = Done;
-            // FirstIdle: ns = SecondIdle;
-            // SecondIdle: ns = Done;
-            Done: ns = Idle;
-        endcase
-    end
 
-    always @(*) begin
-        SRAM_ADDR = 18'b0;
-        SRAM_WE_N = 1'b1;
-        ready = 1'b0;
 
-        case (ps)
-            Idle: ready = ~(wrEn | rdEn);
-            DataLow: begin
-                SRAM_WE_N = ~wrEn;
-                if (rdEn) begin
-                    SRAM_ADDR = sramLowAddr;
-                    readData[15:0] <= SRAM_DQ;
-                end
-                else if (wrEn) begin
-                    SRAM_ADDR = sramLowAddrWrite;
-                    dq = writeData[15:0];
-                end
-            end
-            DataHigh: begin
-                SRAM_WE_N = ~wrEn;
-                if (rdEn) begin
-                    SRAM_ADDR = sramHighAddr;
-                    readData[31:16] <= SRAM_DQ;
-                end
-                else if (wrEn) begin
-                    SRAM_ADDR = sramHighAddrWrite;
-                    dq = writeData[31:16];
-                end
-            end
-            FirstIdle: begin
-              
-            end
-            SecondIdle: begin
-              
-            end
-            Done: ready = 1'b1;
-        endcase
-    end
+always @(*) begin
+    ready = 1'b0;
+    SRAM_WE_N = 1'b1;
 
-    always @(posedge clk or posedge rst) begin
-        if (rst) ps <= Idle;
-        else ps <= ns;
-    end
+    case (ps)
+        IDLE: begin
+            ready = 1;
+        end 
+        WriteDataLow: begin
+            SRAM_WE_N = 0;
+            SRAM_ADDR = addressSub1024[17:0]>>1;
+        end
+        WriteDataHigh: begin
+            SRAM_WE_N = 0;
+            SRAM_ADDR = (addressSub1024[17:0]>>1) + 1;
+        end
+        W3: begin
+        end
+        W4: begin
+        end
+        W5: begin
+            ready = 1;
+        end
+        ReadDataLow: begin
+            SRAM_ADDR = addressSub1024[17:0]>>1;
+            readData[15:0] = SRAM_DQ;
+        end
+        ReadDataHigh: begin
+            SRAM_ADDR = (addressSub1024[17:0]>>1) + 1;
+            readData[31:16] = SRAM_DQ;
+        end
+        R3: begin
+
+        end
+        R4: begin
+
+        end
+        R5: begin
+            ready = 1;
+        end
+        default: begin
+        end
+    endcase
+end
+
+always @(*) begin
+    ns = 4'd0;
+    case (ps)
+        IDLE: begin
+            ns = wr_en ? WriteDataLow : rd_en ? ReadDataLow : IDLE;
+        end 
+        WriteDataLow: begin
+            ns = WriteDataHigh;
+        end
+        WriteDataHigh: begin
+            ns = W3;
+        end
+        W3: begin
+            ns = W4;
+        end
+        W4: begin
+            ns = W5;
+        end
+        W5: begin
+            ns = IDLE;
+        end
+        ReadDataLow: begin
+            ns = ReadDataHigh;
+        end
+        ReadDataHigh: begin
+            ns = R3;
+        end
+        R3: begin
+            ns = R4;
+        end
+        R4: begin
+            ns = R5;
+        end
+        R5: begin
+            ns = IDLE;
+        end
+        default: 
+            ns = IDLE;
+    endcase
+
+end
+
+
+always @(posedge clk, posedge rst) begin
+    if (rst)
+        ps <= 4'd0;
+    else
+        ps <= ns;
+end
+
 endmodule
+
 
 // module Memory
 // (
