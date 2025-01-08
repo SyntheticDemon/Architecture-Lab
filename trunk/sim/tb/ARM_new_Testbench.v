@@ -289,7 +289,7 @@ module ARM_new_Testbench;
     .wbEnEx(EXE_WB_en),
     .wbEnMem(MEM_WB_en),
     .memREn(EXE_stage_mem_read_out),
-    .twoSrc(has_src1),
+    .twoSrc(twoSrc),
     .hazard(hazard_detected)
   );
 
@@ -325,7 +325,7 @@ module ARM_new_Testbench;
         // Apply reset
         rst = 1; #100;
         rst = 0; #100;
-        enableForwarding = 1;
+        enableForwarding = 0;
 
         repeat (200) begin
             # clock_period; // Wait for a few clock cycles

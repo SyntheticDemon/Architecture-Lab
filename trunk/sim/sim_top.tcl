@@ -26,11 +26,11 @@ vsim    -voptargs=+acc -debugDB $TB
 #======================= adding signals to wave window ==========================
 # add wave -hex -group    {TB}                sim:/$TB/*
 #add wave -hex -group    {top}               sim:/$TB/uut/*  
-add wave -hex -group -r {all}               sim:/$TB/*
+# add wave -hex -group -r {all}               sim:/$TB/*
 #add wave -hex -group    {regfile}               sim:/$TB/ID_Stage_Inst/rf/*  
 # add wave -position insertpoint sim:/ARM_new_Testbench/Hazard_Detection_Unit_Inst/*
-add wave -dec -position end  /ARM_new_Testbench/ID_Stage_Inst/rf/register_array
-add wave -dec -position end  /ARM_new_Testbench/Mem_Stage_Inst/M1/mem_data# add wave -position insertpoint  \
+# add wave -dec -position end  /ARM_new_Testbench/ID_Stage_Inst/rf/register_array
+# add wave -dec -position end  /ARM_new_Testbench/Mem_Stage_Inst/M1/mem_data# add wave -position insertpoint  \
 # sim:/ARM_new_Testbench/Mem_Stage_Inst/M1/clk \
 # sim:/ARM_new_Testbench/Mem_Stage_Inst/M1/rst \
 # sim:/ARM_new_Testbench/Mem_Stage_Inst/M1/alu_res \
@@ -55,7 +55,7 @@ add wave -dec -position end  /ARM_new_Testbench/Mem_Stage_Inst/M1/mem_data# add 
 # sim:/ARM_new_Testbench/ID_Stage_Inst/rf/Val_Rm \
 # sim:/ARM_new_Testbench/ID_Stage_Inst/rf/register_array \
 # sim:/ARM_new_Testbench/ID_Stage_Inst/rf/i
-# do wave.do
+do wave.do
 #=========================== Configure wave signals =============================
 configure wave -signalnamewidth 2
 
